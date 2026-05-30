@@ -2,8 +2,9 @@
 set -euo pipefail
 
 mkdir -p storage/uploads storage/artifacts storage/samples/synthetic storage/samples/private
+export NEXT_TELEMETRY_DISABLED=1
 
-uv run --python 3.11 uvicorn paper_hunter.api:app \
+PYTHONPATH="/app/apps/api:/app" uv run --python 3.11 uvicorn paper_hunter.api:app \
   --app-dir apps/api \
   --host 127.0.0.1 \
   --port 8000 &

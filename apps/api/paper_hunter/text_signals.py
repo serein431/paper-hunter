@@ -62,4 +62,12 @@ def scan_hidden_prompt_signals(text: str) -> list[TextSignal]:
                 end=end,
             )
         )
-    return hits
+    deduped: list[TextSignal] = []
+    occupied_ranges: list[range] = []
+    for hit in sorted(hits, key=lambda item: (item.start, -(item.end - item.start))):
+        hit_range = range(hit.start, hit.end)
+        if any(hit.start in existing and hit.end - 1 in existing for existing in occupied_ranges):
+            continue
+        occupied_ranges.append(hit_range)
+        deduped.append(hit)
+    return deduped

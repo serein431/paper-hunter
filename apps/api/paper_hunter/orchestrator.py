@@ -78,13 +78,13 @@ class AnalysisOrchestrator:
         evidence_index = 1
         for source, target in combinations(images, 2):
             score = compare_images(source.path, target.path)
-            if score.confidence < 0.72:
+            if score.confidence < 0.90:
                 continue
             comparison_path = comparison_dir / f"EV-{evidence_index:03d}-side-by-side.png"
             heatmap_path = comparison_dir / f"EV-{evidence_index:03d}-difference.png"
             write_side_by_side_image(source.path, target.path, comparison_path)
             write_difference_image(source.path, target.path, heatmap_path)
-            severity = "high" if score.confidence >= 0.86 else "medium"
+            severity = "high" if score.confidence >= 0.94 else "medium"
             evidence.append(
                 EvidenceCard(
                     evidence_id=f"EV-{task_id}-{evidence_index:03d}",
