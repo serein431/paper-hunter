@@ -7,8 +7,8 @@
     "dev": "next dev --hostname 0.0.0.0 --port 3000",
     "build": "next build",
     "start": "next start --hostname 0.0.0.0 --port 3000",
-    "typecheck": "tsc --noEmit",
-    "lint": "tsc --noEmit"
+    "typecheck": "rm -f tsconfig.tsbuildinfo && tsc --noEmit --incremental false",
+    "lint": "rm -f tsconfig.tsbuildinfo && tsc --noEmit --incremental false"
   },
   "dependencies": {
     "@paper-hunter/types": "workspace:*",

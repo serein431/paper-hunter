@@ -31,7 +31,54 @@ The implementation is intentionally lightweight:
 - Python environment: `uv`.
 - Node package manager: `pnpm`.
 
-More detailed run commands are added as the implementation lands.
+Install dependencies:
+
+```bash
+uv sync --python 3.11
+pnpm install
+```
+
+Run tests and build:
+
+```bash
+uv run --python 3.11 pytest -q
+pnpm --filter @paper-hunter/web build
+```
+
+Start the local demo:
+
+```bash
+./scripts/dev.sh
+```
+
+Open [http://localhost:3000](http://localhost:3000). The Next.js app proxies `/api/*` to the FastAPI service on `127.0.0.1:8000`.
+
+Generate the synthetic sample manually:
+
+```bash
+uv run --python 3.11 python scripts/generate_synthetic_sample.py
+```
+
+## Demo Flow
+
+1. Open the workbench.
+2. Click `Synthetic integrity review sample`.
+3. Inspect the dashboard risk score and evidence counts.
+4. Open `证据中心` and review the figure-similarity and hidden-prompt cards.
+5. Open `图像复核` and inspect the side-by-side comparison and difference map.
+6. Open `引用核验` to view DOI extraction results.
+7. Open `报告导出` and use `Save as PDF`.
+
+## Cloud Demo
+
+The app can be deployed as a single container. The container runs FastAPI on `127.0.0.1:8000`, Next.js on port `3000`, and uses local ephemeral `storage/` for uploads and artifacts.
+
+```bash
+docker build -t paper-hunter .
+docker run --rm -p 3000:3000 paper-hunter
+```
+
+For Railway, Render, or Fly.io, expose port `3000`. Do not mount or publish `storage/samples/private` unless you intentionally need a local-only real-case demo.
 
 ## Safety Language
 

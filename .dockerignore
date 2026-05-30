@@ -1,0 +1,11 @@
+.git
+.venv
+node_modules
+apps/web/.next
+storage/uploads
+storage/artifacts
+storage/samples/private
+__pycache__
+.pytest_cache
+.ruff_cache
+*.tsbuildinfo
