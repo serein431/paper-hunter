@@ -12,6 +12,7 @@ build/
 *.db
 *.sqlite
 *.sqlite3
+*.tsbuildinfo
 coverage/
 storage/uploads/**
 storage/artifacts/**
