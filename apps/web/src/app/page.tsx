@@ -391,6 +391,7 @@ export default function Home() {
   return (
     <main className="app-shell">
       <Hero onRunDemo={() => void runSample("synthetic-paper", "showcase")} onJumpToDemo={scrollToOnsiteDemo} loading={loading} />
+      <MarketReality />
       <StoryStrip />
       <AiLoopStory />
       <OnsiteDemo
@@ -564,8 +565,8 @@ function Hero({
       <div className="hero-copy">
         <div className="hero-manifesto">
           <p className="hero-domain-word">paperhunt.lol</p>
-          <h1>不是在开玩笑。</h1>
-          <p>学术是严谨的事，任何质疑都必须回到可复核证据。</p>
+          <h1>lol 可以是😀，学术不能是玩笑。</h1>
+          <p>任何质疑，都必须回到可复核证据。</p>
         </div>
 
         <div className="hero-product-intro">
@@ -611,6 +612,74 @@ function Hero({
             </span>
           ))}
         </div>
+      </div>
+    </section>
+  );
+}
+
+function MarketReality() {
+  const marketStats = [
+    {
+      icon: <GraduationCap size={22} />,
+      value: "2.22 亿",
+      label: "全球高等教育在读学生",
+      note: "每一届毕业、投稿、评审，都会产生海量论文和学术文本。"
+    },
+    {
+      icon: <FileText size={22} />,
+      value: "300 万+",
+      label: "同行评审文章年产量",
+      note: "知识生产已经是全球级流水线，人工逐篇初筛越来越吃力。"
+    },
+    {
+      icon: <Database size={22} />,
+      value: "90%",
+      label: "全球论文记录集中在 STM 领域",
+      note: "科学、技术、医学论文尤其依赖图像、数据、引用和复现实验。"
+    },
+    {
+      icon: <AlertTriangle size={22} />,
+      value: "1 万+",
+      label: "2023 年撤稿量创纪录",
+      note: "撤稿背后有诚实错误，也有论文工厂、同行评审操纵和伪造。"
+    }
+  ];
+
+  return (
+    <section className="market-section">
+      <div className="market-copy">
+        <p className="eyebrow">市场现实</p>
+        <h2>论文不应该变成互联网知识的 slop。</h2>
+        <p>
+          论文原本是人类思想、实验和方法的结晶。但当教育规模、发表压力、AI 生成和论文工厂叠在一起，
+          “可信知识”正在变成一个需要基础设施守护的问题。
+        </p>
+      </div>
+
+      <div className="market-grid" aria-label="Academic integrity market signals">
+        {marketStats.map((stat) => (
+          <article className="market-card" key={stat.label}>
+            <div className="market-icon">{stat.icon}</div>
+            <strong>{stat.value}</strong>
+            <span>{stat.label}</span>
+            <p>{stat.note}</p>
+          </article>
+        ))}
+      </div>
+
+      <div className="market-thesis">
+        <Sparkles size={22} />
+        <div>
+          <strong>Paper Hunter 的切入点不是替人下判决，而是让每一次质疑先回到证据。</strong>
+          <p>先免费筛风险，再把疑点做成可追问、可复查、可交给机构流程处理的证据包。</p>
+        </div>
+      </div>
+
+      <div className="market-sources" aria-label="数据来源">
+        <a href="https://www.worldbank.org/en/topic/tertiaryeducation" rel="noreferrer" target="_blank">World Bank 高等教育数据</a>
+        <a href="https://stm-assoc.org/wp-content/uploads/2024/08/2018_10_04_STM_Report_2018-1.pdf" rel="noreferrer" target="_blank">STM Report 年发文量</a>
+        <a href="https://stm-assoc.org/oa-dashboard/oa-dashboard-2024/open-access-uptake-by-discipline/" rel="noreferrer" target="_blank">STM OA Dashboard 2024</a>
+        <a href="https://www.nature.com/articles/d41586-023-03974-8" rel="noreferrer" target="_blank">Nature 2023 撤稿记录</a>
       </div>
     </section>
   );
@@ -1391,6 +1460,14 @@ function TeamSection() {
       scope: "AI 开发、产品实现",
       body: "现读于河南省建业外国语中学，17 岁高中生 AI 开发者。参与猎豹移动创始人傅盛发起的黑客松活动，速通最难题并获得 Offer。",
       proofs: ["清华大学 AttraX 一等奖", "小红书黑巅受邀嘉宾", "BEYOND Expo 全场大奖最佳造物奖"]
+    },
+    {
+      avatar: "/assets/team/mrbolt.svg",
+      name: "MR.BOLT",
+      role: "精神支持",
+      scope: "远程陪跑、气氛维护",
+      body: "一直没有真正出现，但一直以网友形态存在于项目现场。负责在关键时刻提供精神支持，让团队相信这个东西真的能跑起来。",
+      proofs: ["从未缺席聊天记录", "长期在线但不一定现身", "项目精神电量补给"]
     }
   ];
 
@@ -1399,7 +1476,7 @@ function TeamSection() {
       <div className="team-heading">
         <p className="eyebrow">团队介绍</p>
         <h2>做一个能上场演示的科研诚信产品。</h2>
-        <p>我们把产品表达和工程实现放在同一条线上：先让大家看懂，再让系统跑起来。</p>
+        <p>我们把产品表达、工程实现和精神电量放在同一条线上：先让大家看懂，再让系统跑起来。</p>
       </div>
       <div className="team-grid">
         {members.map((member) => (
