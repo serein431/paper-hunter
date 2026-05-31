@@ -2169,7 +2169,9 @@ function Dashboard({ result }: { result: AnalysisResult }) {
         <div className={result.model_review?.status === "completed" ? "model-review-chip ready" : "model-review-chip"}>
           {modelReviewLabel(result.model_review?.status)}
         </div>
-        <p>{result.model_review?.summary || `检测到 ${hidden.length} 条 AI 审稿风险，模型摘要等待配置后生成。`}</p>
+        <p className="model-review-summary">
+          {result.model_review?.summary || `检测到 ${hidden.length} 条 AI 审稿风险，模型摘要等待配置后生成。`}
+        </p>
       </Panel>
     </div>
   );

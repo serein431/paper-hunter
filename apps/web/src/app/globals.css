@@ -2778,6 +2778,13 @@ h1 {
   color: #148653;
 }
 
+.model-review-summary {
+  display: -webkit-box;
+  line-clamp: 7;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
 .stack {
   display: grid;
   gap: 14px;
