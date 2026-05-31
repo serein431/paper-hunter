@@ -311,6 +311,7 @@ h1 {
 .product-video-section,
 .market-section,
 .ai-loop-section,
+.trial-section,
 .onsite-demo-section,
 .content-band,
 .position-band,
@@ -759,6 +760,284 @@ h1 {
   color: var(--muted);
   line-height: 1.55;
   margin: 8px 0 0;
+}
+
+.trial-section {
+  background:
+    linear-gradient(135deg, rgba(48, 200, 206, 0.1), transparent 36%),
+    #fffdfa;
+  border-bottom: 1px solid var(--line);
+}
+
+.trial-heading {
+  max-width: 880px;
+}
+
+.trial-layout {
+  align-items: stretch;
+  display: grid;
+  gap: 24px;
+  grid-template-columns: minmax(360px, 0.9fr) minmax(0, 1.1fr);
+  margin-top: 34px;
+}
+
+.trial-methods {
+  display: grid;
+  gap: 14px;
+}
+
+.trial-method-card {
+  align-items: start;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  box-shadow: 0 18px 42px rgba(25, 22, 18, 0.05);
+  display: grid;
+  gap: 16px;
+  grid-template-columns: auto minmax(0, 1fr);
+  min-height: 160px;
+  padding: 20px;
+}
+
+.trial-method-card.featured {
+  background:
+    linear-gradient(135deg, rgba(48, 200, 206, 0.16), transparent 42%),
+    var(--black);
+  border-color: var(--black);
+  color: white;
+  box-shadow: 0 24px 60px rgba(7, 9, 11, 0.22);
+}
+
+.trial-icon {
+  align-items: center;
+  background: #e7f6f2;
+  border: 1px solid rgba(48, 200, 206, 0.38);
+  border-radius: 8px;
+  color: var(--teal);
+  display: inline-flex;
+  height: 48px;
+  justify-content: center;
+  width: 48px;
+}
+
+.trial-method-card.featured .trial-icon {
+  background: rgba(48, 200, 206, 0.14);
+}
+
+.trial-method-card span {
+  color: var(--blue);
+  display: block;
+  font-size: 12px;
+  font-weight: 950;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.trial-method-card.featured span {
+  color: var(--teal);
+}
+
+.trial-method-card h3 {
+  font-size: 24px;
+  line-height: 1.12;
+  margin: 8px 0 8px;
+}
+
+.trial-method-card p {
+  color: var(--muted);
+  line-height: 1.58;
+  margin: 0;
+}
+
+.trial-method-card.featured p {
+  color: #d4dcda;
+}
+
+.trial-method-card button {
+  align-items: center;
+  background: var(--black);
+  border: 1px solid var(--black);
+  border-radius: 8px;
+  color: white;
+  display: inline-flex;
+  font-weight: 950;
+  gap: 8px;
+  margin-top: 16px;
+  min-height: 42px;
+  padding: 0 13px;
+}
+
+.trial-method-card.featured button {
+  background: #fffdfa;
+  border-color: #fffdfa;
+  color: var(--ink);
+}
+
+.trial-method-card button:disabled {
+  cursor: wait;
+  opacity: 0.74;
+}
+
+.bot-console {
+  background: #101214;
+  border: 1px solid rgba(7, 9, 11, 0.85);
+  border-radius: 8px;
+  box-shadow: 0 28px 70px rgba(7, 9, 11, 0.18);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  min-height: 536px;
+  overflow: hidden;
+}
+
+.bot-console-topbar {
+  align-items: center;
+  background:
+    linear-gradient(90deg, #05080a, #172426);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  gap: 12px;
+  justify-content: space-between;
+  min-height: 72px;
+  padding: 16px 18px;
+}
+
+.bot-console-topbar span {
+  color: var(--teal);
+  display: block;
+  font-size: 12px;
+  font-weight: 950;
+}
+
+.bot-console-topbar strong {
+  color: white;
+  display: block;
+  font-size: 22px;
+  margin-top: 4px;
+}
+
+.bot-console-topbar em {
+  background: rgba(48, 200, 206, 0.12);
+  border: 1px solid rgba(48, 200, 206, 0.34);
+  border-radius: 999px;
+  color: #dff9f7;
+  flex: 0 0 auto;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 950;
+  padding: 8px 10px;
+}
+
+.bot-chat-window {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 14px;
+  padding: 18px;
+}
+
+.bot-messages {
+  align-content: start;
+  background: #05080a;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 8px;
+  display: grid;
+  flex: 1;
+  gap: 10px;
+  min-height: 260px;
+  overflow: auto;
+  padding: 16px;
+}
+
+.bot-message {
+  border-radius: 8px;
+  max-width: 84%;
+  padding: 12px 13px;
+}
+
+.bot-message.bot {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.11);
+  justify-self: start;
+}
+
+.bot-message.user {
+  background: #e7f6f2;
+  color: var(--ink);
+  justify-self: end;
+}
+
+.bot-message span {
+  color: var(--teal);
+  display: block;
+  font-size: 11px;
+  font-weight: 950;
+  margin-bottom: 5px;
+}
+
+.bot-message.user span {
+  color: var(--red-dark);
+}
+
+.bot-message p {
+  line-height: 1.55;
+  margin: 0;
+}
+
+.bot-quick-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.bot-quick-actions button {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  border-radius: 999px;
+  color: #edf5f2;
+  font-weight: 900;
+  min-height: 36px;
+  padding: 0 12px;
+}
+
+.bot-quick-actions button:disabled {
+  cursor: wait;
+  opacity: 0.74;
+}
+
+.bot-input-row {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: minmax(0, 1fr) auto;
+}
+
+.bot-input-row input {
+  background: #fbfaf6;
+  border: 1px solid rgba(48, 200, 206, 0.22);
+  border-radius: 8px;
+  color: var(--ink);
+  font: inherit;
+  min-height: 46px;
+  outline: none;
+  padding: 0 13px;
+}
+
+.bot-input-row input:focus {
+  border-color: var(--teal);
+  box-shadow: 0 0 0 3px rgba(48, 200, 206, 0.16);
+}
+
+.bot-input-row button {
+  align-items: center;
+  background: var(--red);
+  border: 1px solid var(--red);
+  border-radius: 8px;
+  color: white;
+  display: inline-flex;
+  font-weight: 950;
+  gap: 8px;
+  min-height: 46px;
+  padding: 0 15px;
 }
 
 .onsite-demo-section {
@@ -2812,6 +3091,7 @@ h1 {
   .story-strip,
   .product-video-section,
   .ai-loop-section,
+  .trial-layout,
   .onsite-demo-section,
   .position-band,
   .launch-strip,
@@ -2939,6 +3219,7 @@ h1 {
   .product-video-section,
   .market-section,
   .ai-loop-section,
+  .trial-section,
   .onsite-demo-section,
   .content-band,
   .position-band,
@@ -2959,6 +3240,7 @@ h1 {
   .dashboard-grid,
   .image-grid,
   .card-facts,
+  .trial-layout,
   .model-knowledge-grid,
   .model-form,
   .agent-grid,
@@ -3079,6 +3361,24 @@ h1 {
   }
 
   .loop-punchline {
+    flex-direction: column;
+  }
+
+  .trial-method-card {
+    grid-template-columns: 1fr;
+  }
+
+  .bot-console {
+    min-height: auto;
+  }
+
+  .bot-console-topbar,
+  .bot-input-row {
+    grid-template-columns: 1fr;
+  }
+
+  .bot-console-topbar {
+    align-items: flex-start;
     flex-direction: column;
   }
 

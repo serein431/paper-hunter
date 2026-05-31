@@ -12,6 +12,7 @@ import {
   AlertTriangle,
   ArrowRight,
   BadgeCheck,
+  Bot,
   CheckCircle2,
   ClipboardCheck,
   Cpu,
@@ -25,12 +26,14 @@ import {
   ImageIcon,
   Landmark,
   LockKeyhole,
+  MessageCircle,
   Newspaper,
   Printer,
   Radar,
   Rocket,
   Scale,
   SearchCheck,
+  Send,
   ShieldCheck,
   Sparkles,
   Timer,
@@ -52,6 +55,7 @@ import {
 
 type TabId = "dashboard" | "evidence" | "images" | "citations" | "report";
 type DemoStatus = "idle" | "running" | "done" | "error";
+type BotMessage = { role: "bot" | "user"; text: string };
 
 const tabs: Array<{ id: TabId; label: string }> = [
   { id: "dashboard", label: "风险仪表盘" },
@@ -283,6 +287,10 @@ export default function Home() {
     document.getElementById("onsite-demo")?.scrollIntoView({ behavior: "smooth", block: "start" });
   }
 
+  function scrollToAgent() {
+    document.getElementById("agent-access")?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
   function updateDemoProgress(nextProgress: number) {
     const cappedProgress = Math.max(0, Math.min(nextProgress, 100));
     setDemoProgress(cappedProgress);
@@ -395,6 +403,13 @@ export default function Home() {
       <MarketReality />
       <StoryStrip />
       <AiLoopStory />
+      <TrialModesSection
+        demoStatus={demoStatus}
+        loading={loading}
+        onOpenAgent={scrollToAgent}
+        onOpenWeb={scrollToDemo}
+        onRunBotDemo={() => void runSample("synthetic-paper", "showcase")}
+      />
       <OnsiteDemo
         demoProgress={demoProgress}
         demoStage={demoStage}
@@ -825,6 +840,181 @@ function AiLoopStory() {
           <h3>Paper Hunter 给这个循环加一张可追溯的风险底片。</h3>
           <p>谁都可以用 AI，但每篇论文都应该留下证据：哪里可疑、为什么可疑、下一步该人工核验什么。</p>
         </div>
+      </div>
+    </section>
+  );
+}
+
+function TrialModesSection({
+  demoStatus,
+  loading,
+  onOpenAgent,
+  onOpenWeb,
+  onRunBotDemo
+}: {
+  demoStatus: DemoStatus;
+  loading: boolean;
+  onOpenAgent: () => void;
+  onOpenWeb: () => void;
+  onRunBotDemo: () => void;
+}) {
+  const [botInput, setBotInput] = useState("");
+  const [botMessages, setBotMessages] = useState<BotMessage[]>([
+    {
+      role: "bot",
+      text: "你好，我是 Paper Hunter Web Bot。你可以直接说：帮我扫一篇论文。"
+    },
+    {
+      role: "bot",
+      text: "我会引导上传 PDF、启动扫描、整理证据卡，并提醒哪些材料需要人工复核。"
+    }
+  ]);
+
+  const botStatus =
+    demoStatus === "done" ? "样例已完成" : loading ? "Bot 正在扫描" : "可直接对话";
+
+  function replyForUserText(text: string) {
+    if (/上传|PDF|论文|扫描|样例|scan/i.test(text)) {
+      return "可以。你可以上传 PDF，或先跑风险样例。我会把风险分、证据卡、图片对比和报告整理出来。";
+    }
+    if (/收费|价格|付费|钱/.test(text)) {
+      return "扫描免费。出现疑点后，再解锁证据卡、图像对比、引用核验和报告导出。";
+    }
+    if (/agent|api|接口|接入/i.test(text)) {
+      return "外部 Agent 可以复制 onboarding，按接口创建扫描任务、读取证据、跨库核验并导出报告。";
+    }
+    return "收到。我可以完成四件事：发起扫描、解释证据、列出人工复核材料、整理报告。";
+  }
+
+  function appendBotExchange(userText: string, botText: string) {
+    setBotMessages((messages) => [
+      ...messages.slice(-5),
+      { role: "user", text: userText },
+      { role: "bot", text: botText }
+    ]);
+  }
+
+  function sendBotMessage(text = botInput.trim()) {
+    if (!text) return;
+    appendBotExchange(text, replyForUserText(text));
+    setBotInput("");
+  }
+
+  function runViaBot() {
+    appendBotExchange(
+      "跑一个风险样例",
+      loading ? "扫描已经在进行，我会继续同步进度。" : "已启动风险样例，进度、日志、风险分和证据卡会同步显示。"
+    );
+    onRunBotDemo();
+  }
+
+  return (
+    <section className="trial-section" id="trial-modes">
+      <div className="section-heading trial-heading">
+        <p className="eyebrow">三种试用方式</p>
+        <h2>想上传、想聊天、想接 Agent，都能开始。</h2>
+        <p>
+          Web 工作台适合现场演示，Web Bot 适合用自然语言完成扫描，Agent 接入适合科研助手、审稿助手和机构内部流程。
+        </p>
+      </div>
+
+      <div className="trial-layout">
+        <div className="trial-methods" aria-label="Paper Hunter trial methods">
+          <article className="trial-method-card">
+            <div className="trial-icon">
+              <Upload size={23} />
+            </div>
+            <div>
+              <span>方式 01</span>
+              <h3>Web 工作台</h3>
+              <p>上传 PDF 或点击样例，直接查看风险仪表盘、证据卡、图片对比和报告。</p>
+              <button type="button" onClick={onOpenWeb}>
+                进入 Web 扫描
+                <ArrowRight size={16} />
+              </button>
+            </div>
+          </article>
+
+          <article className="trial-method-card featured">
+            <div className="trial-icon">
+              <MessageCircle size={23} />
+            </div>
+            <div>
+              <span>方式 02</span>
+              <h3>Web Bot 对话</h3>
+              <p>在页面里说一句需求，Bot 引导上传、发起扫描、解释证据并整理复核建议。</p>
+              <button type="button" onClick={runViaBot} disabled={loading}>
+                {loading ? "扫描中" : "对话跑样例"}
+                <ArrowRight size={16} />
+              </button>
+            </div>
+          </article>
+
+          <article className="trial-method-card">
+            <div className="trial-icon">
+              <Bot size={23} />
+            </div>
+            <div>
+              <span>方式 03</span>
+              <h3>Agent 接入</h3>
+              <p>复制 onboarding 给外部 Agent，让它调用接口完成扫描、跨库核验和报告导出。</p>
+              <button type="button" onClick={onOpenAgent}>
+                查看 Agent 接入
+                <ArrowRight size={16} />
+              </button>
+            </div>
+          </article>
+        </div>
+
+        <aside className="bot-console" aria-label="Paper Hunter Web Bot">
+          <div className="bot-console-topbar">
+            <div>
+              <span>Paper Hunter / Web Bot</span>
+              <strong>对话完成论文扫描</strong>
+            </div>
+            <em>{botStatus}</em>
+          </div>
+
+          <div className="bot-chat-window">
+            <div className="bot-messages">
+              {botMessages.map((message, index) => (
+                <div className={`bot-message ${message.role}`} key={`${message.role}-${index}-${message.text}`}>
+                  <span>{message.role === "bot" ? "Bot" : "你"}</span>
+                  <p>{message.text}</p>
+                </div>
+              ))}
+            </div>
+
+            <div className="bot-quick-actions">
+              <button type="button" onClick={runViaBot} disabled={loading}>
+                跑风险样例
+              </button>
+              <button type="button" onClick={() => sendBotMessage("扫描后怎么收费？")}>
+                问收费方式
+              </button>
+              <button type="button" onClick={() => sendBotMessage("怎么接入 Agent？")}>
+                问 Agent 接入
+              </button>
+            </div>
+
+            <div className="bot-input-row">
+              <input
+                value={botInput}
+                onChange={(event) => setBotInput(event.target.value)}
+                onKeyDown={(event) => {
+                  if (event.key === "Enter") {
+                    sendBotMessage();
+                  }
+                }}
+                placeholder="比如：帮我扫描这篇论文，并告诉我哪里需要人工复核"
+              />
+              <button type="button" onClick={() => sendBotMessage()}>
+                <Send size={16} />
+                发送
+              </button>
+            </div>
+          </div>
+        </aside>
       </div>
     </section>
   );
@@ -1292,7 +1482,7 @@ function AgentIntegrationSection() {
   }
 
   return (
-    <section className="agent-section">
+    <section className="agent-section" id="agent-access">
       <div className="agent-heading">
         <p className="eyebrow">Agent 接入</p>
         <h2>不打开 Web UI，Agent 也能直接开工。</h2>
