@@ -1443,7 +1443,7 @@ function TeamSection() {
       role: "队长",
       scope: "GTM、Demo、RaaS 商业化",
       body: "跨境 AI 从业者，正在和团队一起重构中国企业出海营销现状，推动营销按结果收费的 RaaS 模式。",
-      proofs: ["超越之路黑客松亚军", "AWS 黑客松 AI 榜冠军", "负鼠表情包 chuangbian.cc 作者"]
+      proofs: ["出海营销 RaaS 推动者", "超越之路黑客松亚军", "AWS 黑客松 AI 榜冠军", "负鼠表情包 chuangbian.cc 作者"]
     },
     {
       avatar: "/assets/team/goyang.png",
