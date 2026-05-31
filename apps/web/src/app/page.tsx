@@ -29,6 +29,7 @@ import {
   MessageCircle,
   Newspaper,
   Printer,
+  QrCode,
   Radar,
   Rocket,
   Scale,
@@ -1901,6 +1902,8 @@ function ProductRoadmap() {
 }
 
 function TeamSection() {
+  const [activeContact, setActiveContact] = useState<string | null>(null);
+  const demoGroupQr = "/assets/team/demo-group-qr.jpg";
   const members = [
     {
       avatar: "/assets/team/kevin.png",
@@ -1908,6 +1911,8 @@ function TeamSection() {
       role: "队长",
       scope: "GTM、Demo、RaaS 商业化",
       body: "跨境 AI 从业者，正在和团队一起重构中国企业出海营销现状，推动营销按结果收费的 RaaS 模式。",
+      qr: demoGroupQr,
+      contactHint: "扫码进入 Demo 体验群，留言 Kevin 可现场联系。",
       proofs: [
         "出海营销 RaaS 推动者",
         "Botlearn 社区 Agent 测评全球排行榜 No.2 / No.3",
@@ -1922,6 +1927,8 @@ function TeamSection() {
       role: "全栈工程师",
       scope: "AI 安全、安全智能体",
       body: "本科网络空间安全，即将保研到中科院软件所。主要做 AI 安全和安全智能体方向，目前在阿里安全 AGI 实验室做安全大模型和 CTF Agent 相关工作，也在清华 Vul337 实验室做过 LLM 与二进制逆向研究。",
+      qr: demoGroupQr,
+      contactHint: "扫码进入 Demo 体验群，留言戈洋可现场联系。",
       proofs: ["猎豹移动黑客松冠军", "超越之路个人赛道冠军", "BEYOND Expo 黑客松特等奖", "参与阿里息壤安全大模型技术手册撰写"]
     },
     {
@@ -1930,6 +1937,8 @@ function TeamSection() {
       role: "全栈工程师",
       scope: "AI 开发、产品实现",
       body: "现读于河南省建业外国语中学，17 岁高中生 AI 开发者。参与猎豹移动创始人傅盛发起的黑客松活动，速通最难题并获得 Offer。",
+      qr: demoGroupQr,
+      contactHint: "扫码进入 Demo 体验群，留言张志远可现场联系。",
       proofs: ["清华大学 AttraX 一等奖", "小红书黑巅受邀嘉宾", "BEYOND Expo 全场大奖最佳造物奖"]
     },
     {
@@ -1938,6 +1947,8 @@ function TeamSection() {
       role: "精神支持",
       scope: "远程陪跑、气氛维护",
       body: "一直没有真正出现，但一直以网友形态存在于项目现场。负责在关键时刻提供精神支持，让团队相信这个东西真的能跑起来。",
+      qr: demoGroupQr,
+      contactHint: "扫码进入 Demo 体验群，留言 MR.BOLT 可现场联系。",
       proofs: ["从未缺席聊天记录", "长期在线但不一定现身", "项目精神电量补给"]
     }
   ];
@@ -1950,22 +1961,50 @@ function TeamSection() {
         <p>所有伟大的产品都来源自一个简单的想法，不要停止创造，创造改变世界。</p>
       </div>
       <div className="team-grid">
-        {members.map((member) => (
-          <article className="team-card" key={member.name}>
-            <img className="team-avatar" src={member.avatar} alt={`${member.name} 头像`} />
-            <div>
-              <span>{member.role}</span>
-              <h3>{member.name}</h3>
-              <strong>{member.scope}</strong>
-              <p>{member.body}</p>
-              <div className="team-proof-list" aria-label={`${member.name} 关键经历`}>
-                {member.proofs.map((proof) => (
-                  <em key={proof}>{proof}</em>
-                ))}
+        {members.map((member, index) => {
+          const isActive = activeContact === member.name;
+          const contactId = `team-contact-${index}`;
+          return (
+            <article
+              className={isActive ? "team-card active-contact" : "team-card"}
+              key={member.name}
+              onMouseEnter={() => setActiveContact(member.name)}
+            >
+              <img className="team-avatar" src={member.avatar} alt={`${member.name} 头像`} />
+              <div>
+                <span>{member.role}</span>
+                <h3>{member.name}</h3>
+                <strong>{member.scope}</strong>
+                <p>{member.body}</p>
+                <div className="team-proof-list" aria-label={`${member.name} 关键经历`}>
+                  {member.proofs.map((proof) => (
+                    <em key={proof}>{proof}</em>
+                  ))}
+                </div>
+                <button
+                  aria-controls={contactId}
+                  aria-expanded={isActive}
+                  className="team-contact-trigger"
+                  onClick={() => setActiveContact(isActive ? null : member.name)}
+                  type="button"
+                >
+                  <MessageCircle size={16} />
+                  微信联系
+                </button>
+                <div className="team-qr-drawer" id={contactId}>
+                  <div className="team-qr-frame">
+                    <img src={member.qr} alt={`${member.name} 微信联系二维码`} />
+                  </div>
+                  <div className="team-qr-copy">
+                    <QrCode size={18} />
+                    <strong>{member.name}</strong>
+                    <p>{member.contactHint}</p>
+                  </div>
+                </div>
               </div>
-            </div>
-          </article>
-        ))}
+            </article>
+          );
+        })}
       </div>
     </section>
   );

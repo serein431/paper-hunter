@@ -3638,6 +3638,89 @@ h1 {
   padding: 7px 9px;
 }
 
+.team-contact-trigger {
+  align-items: center;
+  background: #081013;
+  border: 1px solid rgba(48, 200, 206, 0.28);
+  border-radius: 999px;
+  color: white;
+  cursor: pointer;
+  display: inline-flex;
+  font-weight: 900;
+  gap: 7px;
+  margin-top: 16px;
+  padding: 9px 12px;
+  transition: background 160ms ease, border-color 160ms ease, transform 160ms ease;
+}
+
+.team-contact-trigger:hover {
+  background: #10242a;
+  border-color: rgba(48, 200, 206, 0.72);
+  transform: translateY(-1px);
+}
+
+.team-qr-drawer {
+  background: #081013;
+  border: 1px solid rgba(48, 200, 206, 0.24);
+  border-radius: 8px;
+  color: white;
+  display: grid;
+  gap: 12px;
+  grid-template-columns: 104px minmax(0, 1fr);
+  margin-top: 0;
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  padding: 0 12px;
+  transform: translateY(14px);
+  transition: max-height 240ms ease, opacity 180ms ease, padding 240ms ease, transform 240ms ease, margin-top 240ms ease;
+}
+
+.team-card:hover .team-qr-drawer,
+.team-card.active-contact .team-qr-drawer {
+  margin-top: 14px;
+  max-height: 230px;
+  opacity: 1;
+  padding: 12px;
+  transform: translateY(0);
+}
+
+.team-qr-frame {
+  aspect-ratio: 1;
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+  padding: 6px;
+}
+
+.team-qr-frame img {
+  display: block;
+  height: 100%;
+  object-fit: cover;
+  width: 100%;
+}
+
+.team-qr-copy {
+  align-content: center;
+  display: grid;
+  gap: 6px;
+}
+
+.team-qr-copy svg {
+  color: var(--teal);
+}
+
+.team-qr-copy strong {
+  color: white;
+  margin: 0;
+}
+
+.team-qr-copy p {
+  color: rgba(255, 255, 255, 0.68);
+  font-size: 13px;
+  line-height: 1.45;
+}
+
 .ack-section {
   align-items: center;
   background: #05080a;
