@@ -1946,7 +1946,7 @@ function TeamSection() {
     <section className="team-section">
       <div className="team-heading">
         <p className="eyebrow">团队介绍</p>
-        <h2>清松Labs</h2>
+        <h2>轻松Labs</h2>
         <p>所有伟大的产品都来源自一个简单的想法，不要停止创造，创造改变世界。</p>
       </div>
       <div className="team-grid">
