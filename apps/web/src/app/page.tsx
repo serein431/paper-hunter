@@ -1968,7 +1968,6 @@ function TeamSection() {
             <article
               className={isActive ? "team-card active-contact" : "team-card"}
               key={member.name}
-              onMouseEnter={() => setActiveContact(member.name)}
             >
               <img className="team-avatar" src={member.avatar} alt={`${member.name} 头像`} />
               <div>

@@ -3666,7 +3666,7 @@ h1 {
   color: white;
   display: grid;
   gap: 12px;
-  grid-template-columns: 104px minmax(0, 1fr);
+  grid-template-columns: 128px minmax(0, 1fr);
   margin-top: 0;
   max-height: 0;
   opacity: 0;
@@ -3696,7 +3696,7 @@ h1 {
 .team-qr-frame img {
   display: block;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
   width: 100%;
 }
 
