@@ -535,6 +535,7 @@ export default function Home() {
         )}
       </section>
       <TechnicalImplementation />
+      <ProductRoadmap />
       <TeamSection />
     </main>
   );
@@ -1430,6 +1431,66 @@ function TechnicalImplementation() {
       <div className="tech-principle">
         <Scale size={20} />
         <span>技术边界：系统只输出证据和复核优先级，不输出学术不端判决。最终判断必须由人基于原始数据和机构流程完成。</span>
+      </div>
+    </section>
+  );
+}
+
+function ProductRoadmap() {
+  const roadmapSteps = [
+    {
+      icon: <Landmark size={24} />,
+      label: "01",
+      title: "科研论文机构接入",
+      body: "面向高校、期刊、科研诚信办公室和论文知识库，提供 Web UI、API 与 Agent 接入，把初筛、复核和证据留档变成标准流程。"
+    },
+    {
+      icon: <ShieldCheck size={24} />,
+      label: "02",
+      title: "真人撰写可信认证",
+      body: "结合写作过程指纹、身份 ID、时间线和可选区块链存证，为真人完成的学术工作建立可复核证明，而不是只在交稿后追问结果。"
+    },
+    {
+      icon: <Database size={24} />,
+      label: "03",
+      title: "True 人类智慧数据库",
+      body: "沉淀经授权、可追溯、可认证的人类高等智慧作品，让高质量思想成为被尊重、被引用、也能被机器正确学习的数据资产。"
+    },
+    {
+      icon: <Rocket size={24} />,
+      label: "04",
+      title: "AGI 贡献",
+      body: "AI 应该建立在人类高等智慧的结晶之上，而不是互联网数字噪声的堆砌。Paper Hunter 要把可信论文与思想沉淀成面向 AGI 的干净知识底座。"
+    }
+  ];
+
+  return (
+    <section className="roadmap-section" id="roadmap">
+      <div className="roadmap-heading">
+        <p className="eyebrow">Product Roadmap</p>
+        <h2>从论文打假，走向可信人类智慧基础设施。</h2>
+        <p>
+          Paper Hunter 的长期目标不是制造更多判决，而是把学术生产过程里的“人、证据、机构和知识资产”
+          重新连接起来。
+        </p>
+      </div>
+
+      <div className="roadmap-grid">
+        {roadmapSteps.map((step) => (
+          <article className="roadmap-card" key={step.title}>
+            <div className="roadmap-card-top">
+              <span>{step.label}</span>
+              <div>{step.icon}</div>
+            </div>
+            <h3>{step.title}</h3>
+            <p>{step.body}</p>
+          </article>
+        ))}
+      </div>
+
+      <div className="roadmap-thesis">
+        <Sparkles size={20} />
+        <strong>可信的人类智慧，应该成为下一代 AI 的训练边界和价值来源。</strong>
       </div>
     </section>
   );

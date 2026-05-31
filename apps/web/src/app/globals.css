@@ -312,6 +312,7 @@ h1 {
 .model-knowledge-section,
 .agent-section,
 .tech-section,
+.roadmap-section,
 .team-section {
   padding: 68px 44px;
 }
@@ -363,6 +364,9 @@ h1 {
 .tech-visual-flow,
 .tech-canvas,
 .tech-principle,
+.roadmap-heading,
+.roadmap-grid,
+.roadmap-thesis,
 .team-heading,
 .team-grid {
   position: relative;
@@ -2483,6 +2487,114 @@ h1 {
   margin-top: 2px;
 }
 
+.roadmap-section {
+  background:
+    linear-gradient(180deg, #fffdfa 0%, #f7f3ea 100%);
+  border-top: 1px solid var(--line);
+  color: var(--ink);
+  position: relative;
+}
+
+.roadmap-heading {
+  max-width: 900px;
+}
+
+.roadmap-heading h2 {
+  font-size: 42px;
+  font-weight: 950;
+  letter-spacing: 0;
+  line-height: 1.08;
+  margin: 0;
+}
+
+.roadmap-heading p {
+  color: var(--muted);
+  font-size: 18px;
+  line-height: 1.7;
+  margin: 18px 0 0;
+}
+
+.roadmap-grid {
+  display: grid;
+  gap: 14px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin-top: 30px;
+}
+
+.roadmap-card {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  box-shadow: 0 18px 42px rgba(25, 22, 18, 0.05);
+  min-height: 278px;
+  padding: 18px;
+  position: relative;
+}
+
+.roadmap-card::before {
+  background: var(--teal);
+  content: "";
+  height: 3px;
+  left: 18px;
+  position: absolute;
+  right: 18px;
+  top: -2px;
+}
+
+.roadmap-card-top {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+}
+
+.roadmap-card-top span {
+  color: var(--red);
+  font-size: 13px;
+  font-weight: 950;
+}
+
+.roadmap-card-top div {
+  align-items: center;
+  background: #effafa;
+  border: 1px solid rgba(48, 200, 206, 0.34);
+  border-radius: 8px;
+  color: var(--blue);
+  display: flex;
+  height: 46px;
+  justify-content: center;
+  width: 46px;
+}
+
+.roadmap-card h3 {
+  font-size: 24px;
+  line-height: 1.12;
+  margin: 24px 0 12px;
+}
+
+.roadmap-card p {
+  color: var(--muted);
+  font-size: 16px;
+  line-height: 1.68;
+  margin: 0;
+}
+
+.roadmap-thesis {
+  align-items: center;
+  background: var(--black);
+  border-left: 4px solid var(--teal);
+  border-radius: 8px;
+  color: white;
+  display: flex;
+  gap: 12px;
+  margin-top: 16px;
+  padding: 18px 20px;
+}
+
+.roadmap-thesis svg {
+  color: var(--teal);
+  flex: 0 0 auto;
+}
+
 .team-section {
   background: #f7f3ea;
   border-top: 1px solid var(--line);
@@ -2624,6 +2736,7 @@ h1 {
   .dashboard-grid,
   .image-grid,
   .tech-visual-flow,
+  .roadmap-grid,
   .team-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -2718,6 +2831,7 @@ h1 {
   .model-knowledge-section,
   .agent-section,
   .tech-section,
+  .roadmap-section,
   .team-section {
     padding: 42px 18px;
   }
@@ -2735,6 +2849,7 @@ h1 {
   .agent-grid,
   .agent-endpoints,
   .tech-visual-flow,
+  .roadmap-grid,
   .team-grid {
     grid-template-columns: 1fr;
   }
