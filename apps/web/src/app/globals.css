@@ -56,6 +56,7 @@ button:disabled {
 }
 
 .hero-stage {
+  animation: heroDrift 16s ease-in-out infinite alternate;
   min-height: 820px;
   padding: 34px 56px 72px;
   position: relative;
@@ -141,6 +142,7 @@ button:disabled {
 }
 
 .hero-domain-word {
+  animation: softPulse 3.8s ease-in-out infinite;
   color: var(--teal);
   font-size: 30px;
   font-weight: 950;
@@ -161,10 +163,16 @@ button:disabled {
 }
 
 .hero-manifesto h1 span {
+  animation: fadeLift 0.72s ease both;
   display: block;
 }
 
+.hero-manifesto h1 span:nth-child(2) {
+  animation-delay: 0.08s;
+}
+
 .hero-manifesto p:not(.hero-domain-word) {
+  animation: fadeLift 0.72s ease 0.16s both;
   color: #f4efe6;
   font-size: 31px;
   font-weight: 850;
@@ -174,6 +182,7 @@ button:disabled {
 }
 
 .hero-product-intro {
+  animation: fadeLift 0.72s ease 0.24s both;
   margin-top: 48px;
   max-width: 700px;
 }
@@ -196,17 +205,6 @@ button:disabled {
 
 .hero-kicker-row .eyebrow {
   margin: 0;
-}
-
-.hero-kicker-row span {
-  background: rgba(48, 200, 206, 0.14);
-  border: 1px solid rgba(48, 200, 206, 0.32);
-  border-radius: 999px;
-  color: #d9fffd;
-  font-size: 12px;
-  font-weight: 950;
-  line-height: 1;
-  padding: 8px 10px;
 }
 
 .eyebrow,
@@ -242,6 +240,7 @@ h1 {
 }
 
 .hero-actions {
+  animation: fadeLift 0.72s ease 0.32s both;
   display: flex;
   flex-wrap: wrap;
   gap: 12px;
@@ -263,6 +262,10 @@ h1 {
   font-weight: 900;
 }
 
+.primary-action svg {
+  animation: rocketNudge 1.9s ease-in-out infinite;
+}
+
 .hero-metrics {
   display: grid;
   gap: 10px;
@@ -271,6 +274,7 @@ h1 {
 }
 
 .hero-metrics span {
+  animation: fadeLift 0.7s ease both;
   background: rgba(255, 255, 255, 0.08);
   border: 1px solid rgba(255, 255, 255, 0.14);
   border-radius: 8px;
@@ -279,6 +283,18 @@ h1 {
   gap: 4px;
   min-height: 78px;
   padding: 13px 14px;
+}
+
+.hero-metrics span:nth-child(1) {
+  animation-delay: 0.38s;
+}
+
+.hero-metrics span:nth-child(2) {
+  animation-delay: 0.46s;
+}
+
+.hero-metrics span:nth-child(3) {
+  animation-delay: 0.54s;
 }
 
 .hero-metrics strong {
@@ -530,6 +546,13 @@ h1 {
   box-shadow: 0 18px 42px rgba(25, 22, 18, 0.05);
   min-height: 254px;
   padding: 18px;
+  transition: border-color 180ms ease, transform 180ms ease, box-shadow 180ms ease;
+}
+
+.market-card:hover {
+  border-color: rgba(48, 200, 206, 0.5);
+  box-shadow: 0 24px 56px rgba(25, 22, 18, 0.08);
+  transform: translateY(-3px);
 }
 
 .market-icon {
@@ -789,6 +812,7 @@ h1 {
 }
 
 .trial-method-card {
+  transition: border-color 180ms ease, transform 180ms ease, box-shadow 180ms ease;
   align-items: start;
   background: var(--panel);
   border: 1px solid var(--line);
@@ -799,6 +823,12 @@ h1 {
   grid-template-columns: auto minmax(0, 1fr);
   min-height: 160px;
   padding: 20px;
+}
+
+.trial-method-card:hover {
+  border-color: rgba(48, 200, 206, 0.55);
+  box-shadow: 0 24px 56px rgba(25, 22, 18, 0.08);
+  transform: translateY(-3px);
 }
 
 .trial-method-card.featured {
@@ -823,6 +853,7 @@ h1 {
 }
 
 .trial-method-card.featured .trial-icon {
+  animation: softPulse 3s ease-in-out infinite;
   background: rgba(48, 200, 206, 0.14);
 }
 
@@ -881,6 +912,7 @@ h1 {
 }
 
 .bot-console {
+  animation: consoleGlow 4.8s ease-in-out infinite;
   background: #101214;
   border: 1px solid rgba(7, 9, 11, 0.85);
   border-radius: 8px;
@@ -958,6 +990,7 @@ h1 {
 }
 
 .bot-message.bot {
+  animation: fadeLift 0.52s ease both;
   background: rgba(255, 255, 255, 0.08);
   border: 1px solid rgba(255, 255, 255, 0.11);
   justify-self: start;
@@ -1408,6 +1441,82 @@ h1 {
   }
 }
 
+@keyframes fadeLift {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes softPulse {
+  0%,
+  100% {
+    filter: drop-shadow(0 0 0 rgba(48, 200, 206, 0));
+  }
+
+  50% {
+    filter: drop-shadow(0 0 14px rgba(48, 200, 206, 0.36));
+  }
+}
+
+@keyframes heroDrift {
+  from {
+    background-position: center;
+  }
+
+  to {
+    background-position: 54% center;
+  }
+}
+
+@keyframes rocketNudge {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+
+  50% {
+    transform: translate(2px, -2px);
+  }
+}
+
+@keyframes consoleGlow {
+  0%,
+  100% {
+    box-shadow: 0 28px 70px rgba(7, 9, 11, 0.18);
+  }
+
+  50% {
+    box-shadow: 0 28px 70px rgba(48, 200, 206, 0.16);
+  }
+}
+
+@keyframes roadmapFlow {
+  from {
+    background-position: 0 0;
+  }
+
+  to {
+    background-position: 260px 0;
+  }
+}
+
+@keyframes iconFloat {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-4px);
+  }
+}
+
 .story-grid,
 .audience-grid,
 .pricing-grid {
@@ -1570,6 +1679,13 @@ h1 {
   min-height: 282px;
   position: relative;
   box-shadow: 0 18px 42px rgba(25, 22, 18, 0.05);
+  transition: border-color 180ms ease, transform 180ms ease, box-shadow 180ms ease;
+}
+
+.pricing-card:hover {
+  border-color: rgba(48, 200, 206, 0.5);
+  box-shadow: 0 24px 56px rgba(25, 22, 18, 0.09);
+  transform: translateY(-3px);
 }
 
 .pricing-card.featured {
@@ -1664,6 +1780,13 @@ h1 {
   box-shadow: 0 18px 42px rgba(25, 22, 18, 0.05);
   min-height: 224px;
   padding: 20px;
+  transition: border-color 180ms ease, transform 180ms ease, box-shadow 180ms ease;
+}
+
+.donation-panel article:hover {
+  border-color: rgba(48, 200, 206, 0.5);
+  box-shadow: 0 24px 56px rgba(25, 22, 18, 0.08);
+  transform: translateY(-3px);
 }
 
 .donation-panel svg {
@@ -2962,11 +3085,131 @@ h1 {
   margin: 18px 0 0;
 }
 
+.roadmap-visual {
+  background:
+    linear-gradient(135deg, rgba(48, 200, 206, 0.16), transparent 38%),
+    linear-gradient(315deg, rgba(212, 49, 43, 0.12), transparent 42%),
+    #101214;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  color: white;
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  margin-top: 32px;
+  overflow: hidden;
+  padding: 18px;
+  position: relative;
+}
+
+.roadmap-visual::before {
+  animation: roadmapFlow 3.8s linear infinite;
+  background: linear-gradient(90deg, transparent, rgba(48, 200, 206, 0.28), var(--teal), rgba(48, 200, 206, 0.28), transparent);
+  background-size: 260px 2px;
+  content: "";
+  height: 2px;
+  left: 46px;
+  position: absolute;
+  right: 46px;
+  top: 62px;
+}
+
+.roadmap-visual-node {
+  animation: fadeLift 0.72s ease both;
+  background: rgba(255, 255, 255, 0.075);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 8px;
+  min-height: 198px;
+  padding: 16px;
+  position: relative;
+  z-index: 1;
+  transition: border-color 180ms ease, transform 180ms ease, background 180ms ease;
+}
+
+.roadmap-visual-node:nth-child(2) {
+  animation-delay: 0.08s;
+}
+
+.roadmap-visual-node:nth-child(3) {
+  animation-delay: 0.16s;
+}
+
+.roadmap-visual-node:nth-child(4) {
+  animation-delay: 0.24s;
+}
+
+.roadmap-visual-node:nth-child(5) {
+  animation-delay: 0.32s;
+}
+
+.roadmap-visual-node:hover {
+  background: rgba(255, 255, 255, 0.11);
+  border-color: rgba(48, 200, 206, 0.42);
+  transform: translateY(-3px);
+}
+
+.roadmap-visual-node:not(:last-child)::after {
+  color: var(--teal);
+  content: "->";
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  font-weight: 950;
+  position: absolute;
+  right: -13px;
+  top: 36px;
+}
+
+.visual-node-index {
+  color: rgba(255, 255, 255, 0.28);
+  font-size: 28px;
+  font-weight: 950;
+  line-height: 1;
+  position: absolute;
+  right: 14px;
+  top: 13px;
+}
+
+.visual-node-icon {
+  animation: iconFloat 3.4s ease-in-out infinite;
+  align-items: center;
+  background: #fffdfa;
+  border: 1px solid rgba(48, 200, 206, 0.34);
+  border-radius: 8px;
+  color: var(--blue);
+  display: inline-flex;
+  height: 46px;
+  justify-content: center;
+  margin-bottom: 22px;
+  width: 46px;
+}
+
+.roadmap-visual-node span {
+  color: var(--teal);
+  display: block;
+  font-size: 12px;
+  font-weight: 950;
+  letter-spacing: 0.06em;
+  margin-bottom: 8px;
+}
+
+.roadmap-visual-node strong {
+  color: white;
+  display: block;
+  font-size: 22px;
+  line-height: 1.12;
+}
+
+.roadmap-visual-node p {
+  color: #cfd6d5;
+  font-size: 14px;
+  line-height: 1.48;
+  margin: 10px 0 0;
+}
+
 .roadmap-grid {
   display: grid;
   gap: 14px;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  margin-top: 30px;
+  margin-top: 18px;
 }
 
 .roadmap-card {
@@ -2974,9 +3217,16 @@ h1 {
   border: 1px solid var(--line);
   border-radius: 8px;
   box-shadow: 0 18px 42px rgba(25, 22, 18, 0.05);
-  min-height: 278px;
+  min-height: 174px;
   padding: 18px;
   position: relative;
+  transition: border-color 180ms ease, transform 180ms ease, box-shadow 180ms ease;
+}
+
+.roadmap-card:hover {
+  border-color: rgba(48, 200, 206, 0.5);
+  box-shadow: 0 24px 56px rgba(25, 22, 18, 0.08);
+  transform: translateY(-3px);
 }
 
 .roadmap-card::before {
@@ -3014,15 +3264,16 @@ h1 {
 }
 
 .roadmap-card h3 {
-  font-size: 24px;
+  font-size: 22px;
   line-height: 1.12;
-  margin: 24px 0 12px;
+  margin: 20px 0 10px;
 }
 
 .roadmap-card p {
   color: var(--muted);
-  font-size: 16px;
-  line-height: 1.68;
+  font-size: 15px;
+  font-weight: 850;
+  line-height: 1.45;
   margin: 0;
 }
 
@@ -3083,6 +3334,13 @@ h1 {
   gap: 16px;
   min-height: 304px;
   padding: 18px;
+  transition: border-color 180ms ease, transform 180ms ease, box-shadow 180ms ease;
+}
+
+.team-card:hover {
+  border-color: rgba(48, 200, 206, 0.5);
+  box-shadow: 0 24px 56px rgba(25, 22, 18, 0.08);
+  transform: translateY(-3px);
 }
 
 .team-avatar {
@@ -3235,6 +3493,7 @@ h1 {
   .audience-grid,
   .pricing-grid,
   .donation-panel,
+  .roadmap-visual,
   .dashboard-grid,
   .image-grid,
   .tech-visual-flow,
@@ -3369,8 +3628,14 @@ h1 {
   .agent-endpoints,
   .tech-visual-flow,
   .roadmap-grid,
+  .roadmap-visual,
   .team-grid {
     grid-template-columns: 1fr;
+  }
+
+  .roadmap-visual::before,
+  .roadmap-visual-node::after {
+    display: none;
   }
 
   .agent-heading h2 {
@@ -3553,6 +3818,17 @@ h1 {
 
   .status-pill {
     justify-self: start;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
   }
 }
 

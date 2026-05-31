@@ -594,12 +594,9 @@ function Hero({
         <div className="hero-product-intro">
           <div className="hero-kicker-row">
             <p className="eyebrow">面向 AI 论文时代的科研诚信工具</p>
-            <span>#2026AIAgent清客松</span>
           </div>
           <strong>Paper Hunter · 论文打假人</strong>
-          <p className="hero-lede">
-            上传论文 PDF，先免费完成风险初筛。没有疑点，流程结束；出现风险信号，再解锁证据卡、图像对比和复核报告。
-          </p>
+          <p className="hero-lede">上传 PDF 免费初筛；有疑点，再解锁证据卡、图像对比和报告。</p>
         </div>
 
         <div className="hero-actions">
@@ -689,25 +686,25 @@ function MarketReality() {
       icon: <GraduationCap size={22} />,
       value: "2.22 亿",
       label: "全球高等教育在读学生",
-      note: "每一届毕业、投稿、评审，都会产生海量论文和学术文本。"
+      note: "毕业、投稿、评审持续产生论文。"
     },
     {
       icon: <FileText size={22} />,
       value: "300 万+",
       label: "同行评审文章年产量",
-      note: "知识生产已经是全球级流水线，人工逐篇初筛越来越吃力。"
+      note: "人工逐篇初筛越来越吃力。"
     },
     {
       icon: <Database size={22} />,
       value: "90%",
       label: "全球论文记录集中在 STM 领域",
-      note: "科学、技术、医学论文尤其依赖图像、数据、引用和复现实验。"
+      note: "图像、数据、引用是复核重点。"
     },
     {
       icon: <AlertTriangle size={22} />,
       value: "1 万+",
       label: "2023 年撤稿量创纪录",
-      note: "撤稿背后有诚实错误，也有论文工厂、同行评审操纵和伪造。"
+      note: "涉及错误、论文工厂和审稿操纵。"
     }
   ];
 
@@ -716,10 +713,7 @@ function MarketReality() {
       <div className="market-copy">
         <p className="eyebrow">市场现实</p>
         <h2>论文不应该变成互联网知识的 slop。</h2>
-        <p>
-          论文原本是人类思想、实验和方法的结晶。但当教育规模、发表压力、AI 生成和论文工厂叠在一起，
-          “可信知识”正在变成一个需要基础设施守护的问题。
-        </p>
+        <p>论文是思想、实验和方法的结晶。AI 生成、发表压力和论文工厂，让可信知识需要新的基础设施。</p>
       </div>
 
       <div className="market-grid" aria-label="Academic integrity market signals">
@@ -915,9 +909,7 @@ function TrialModesSection({
       <div className="section-heading trial-heading">
         <p className="eyebrow">三种试用方式</p>
         <h2>想上传、想聊天、想接 Agent，都能开始。</h2>
-        <p>
-          Web 工作台适合现场演示，Web Bot 适合用自然语言完成扫描，Agent 接入适合科研助手、审稿助手和机构内部流程。
-        </p>
+        <p>Web 扫描、页面 Bot、外部 Agent，三条路径都能跑完整流程。</p>
       </div>
 
       <div className="trial-layout">
@@ -1050,9 +1042,7 @@ function OnsiteDemo({
       <div className="onsite-demo-copy">
         <p className="eyebrow">现场演示</p>
         <h2>点击一次，真的跑完一篇论文扫描。</h2>
-        <p>
-          这是一段真实流程演示。开始扫描后，系统会调用后端分析一篇带有风险信号的 PDF，并把进度、日志、风险分和证据卡同步展示出来。
-        </p>
+        <p>调用后端扫描风险 PDF，同步展示进度、日志、风险分和证据卡。</p>
         <div className="demo-actions">
           <button className="primary-action" type="button" onClick={onRunDemo} disabled={loading}>
             <Radar size={18} />
@@ -1256,27 +1246,24 @@ function InstitutionDonationSection() {
       <div className="donation-copy">
         <p className="eyebrow">院校公益试点</p>
         <h2>产品进入 MVP 阶段后，可向有需要的院校免费捐赠。</h2>
-        <p>
-          如果高校、实验室、期刊编辑部或科研诚信办公室需要一套论文风险初筛工具，
-          Paper Hunter 在完成可稳定试用的 MVP 后，愿意提供免费捐赠试点版本。
-        </p>
+        <p>MVP 稳定后，面向有真实需求的高校、实验室、期刊和科研诚信办公室提供免费试点。</p>
       </div>
 
       <div className="donation-panel">
         <article>
           <Landmark size={22} />
           <strong>面向院校真实流程</strong>
-          <p>支持毕业论文初筛、投稿前自查、匿名举报线索整理和科研诚信办公室预审。</p>
+          <p>毕业初筛、投稿自查、举报线索整理。</p>
         </article>
         <article>
           <BadgeCheck size={22} />
           <strong>免费捐赠试点版本</strong>
-          <p>MVP 稳定后可提供给试点院校使用，优先覆盖真实有需求、愿意共同反馈流程的机构。</p>
+          <p>优先给真实有需求、愿意反馈流程的机构。</p>
         </article>
         <article>
           <Sparkles size={22} />
           <strong>一起建设可信学术生态</strong>
-          <p>院校反馈将帮助我们完善证据标准、合规边界和人工复核流程。</p>
+          <p>共同完善证据标准、合规边界和复核流程。</p>
         </article>
       </div>
     </section>
@@ -1321,10 +1308,7 @@ function ModelKnowledgeSection({
       <div className="section-heading">
         <p className="eyebrow">模型与论文库</p>
         <h2>模型自己带，论文库系统接。</h2>
-        <p>
-          面向机构场景，Paper Hunter 不强绑单一模型。用户可以配置自己的推理模型，
-          后端同时聚合公开论文知识库，用来核验 DOI、预印本、引用网络和医学文献记录。
-        </p>
+        <p>自带模型，系统接论文库：核验 DOI、预印本、引用网络和医学文献记录。</p>
       </div>
 
       <div className="model-knowledge-grid">
@@ -1521,10 +1505,7 @@ function AgentIntegrationSection() {
       <div className="agent-heading">
         <p className="eyebrow">Agent 接入</p>
         <h2>不打开 Web UI，Agent 也能直接开工。</h2>
-        <p>
-          给 Agent 一段 onboarding，它就知道怎么上传论文、调用扫描接口、跨库核验、导出证据报告。
-          适合接入科研助手、审稿助手、机构内部工作流和自动化复核系统。
-        </p>
+        <p>复制 onboarding，Agent 就能上传论文、调用扫描、跨库核验、导出报告。</p>
       </div>
 
       <div className="agent-grid">
@@ -1718,25 +1699,58 @@ function ProductRoadmap() {
       icon: <Landmark size={24} />,
       label: "01",
       title: "科研论文机构接入",
-      body: "面向高校、期刊、科研诚信办公室和论文知识库，提供 Web UI、API 与 Agent 接入，把初筛、复核和证据留档变成标准流程。"
+      body: "Web UI / API / Agent 接入"
     },
     {
       icon: <ShieldCheck size={24} />,
       label: "02",
       title: "真人撰写可信认证",
-      body: "结合写作过程指纹、身份 ID、时间线和可选区块链存证，把真人完成的学术工作从写作过程开始做成可复核证明。"
+      body: "身份 ID / 写作指纹 / 时间线"
     },
     {
       icon: <Database size={24} />,
       label: "03",
       title: "True 人类智慧数据库",
-      body: "沉淀经授权、可追溯、可认证的人类高等智慧作品，让高质量思想成为被尊重、被引用、也能被机器正确学习的数据资产。"
+      body: "授权 / 可追溯 / 可认证"
     },
     {
       icon: <Rocket size={24} />,
       label: "04",
       title: "AGI 贡献",
-      body: "AI 应该建立在人类高等智慧的结晶之上，远离互联网数字噪声的堆砌。Paper Hunter 要把可信论文与思想沉淀成面向 AGI 的干净知识底座。"
+      body: "可信论文成为干净知识底座"
+    }
+  ];
+
+  const roadmapVisualNodes = [
+    {
+      icon: <FileSearch size={22} />,
+      label: "现在",
+      title: "疑点证据包",
+      caption: "把一篇 PDF 的风险讲清楚"
+    },
+    {
+      icon: <Landmark size={22} />,
+      label: "机构",
+      title: "复核工作流",
+      caption: "进入高校、期刊和科研诚信流程"
+    },
+    {
+      icon: <ShieldCheck size={22} />,
+      label: "认证",
+      title: "真人撰写证明",
+      caption: "从写作过程开始留痕"
+    },
+    {
+      icon: <Database size={22} />,
+      label: "沉淀",
+      title: "True 智慧库",
+      caption: "收集可追溯的人类高等智慧"
+    },
+    {
+      icon: <Rocket size={22} />,
+      label: "未来",
+      title: "AGI 知识底座",
+      caption: "让 AI 学到更干净的知识"
     }
   ];
 
@@ -1745,9 +1759,19 @@ function ProductRoadmap() {
       <div className="roadmap-heading">
         <p className="eyebrow">Product Roadmap</p>
         <h2>从论文打假，走向可信人类智慧基础设施。</h2>
-        <p>
-          Paper Hunter 的长期目标，是把学术生产过程里的“人、证据、机构和知识资产”重新连接起来。
-        </p>
+        <p>把学术生产过程里的“人、证据、机构和知识资产”重新连接起来。</p>
+      </div>
+
+      <div className="roadmap-visual" aria-label="Paper Hunter 产品路线图可视化">
+        {roadmapVisualNodes.map((node, index) => (
+          <article className="roadmap-visual-node" key={node.title}>
+            <div className="visual-node-index">{String(index + 1).padStart(2, "0")}</div>
+            <div className="visual-node-icon">{node.icon}</div>
+            <span>{node.label}</span>
+            <strong>{node.title}</strong>
+            <p>{node.caption}</p>
+          </article>
+        ))}
       </div>
 
       <div className="roadmap-grid">
