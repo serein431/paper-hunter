@@ -106,9 +106,18 @@ class ReportResult(BaseModel):
     created_at: datetime = Field(default_factory=utc_now)
 
 
+class ModelReview(BaseModel):
+    provider: str
+    model: str
+    status: Literal["skipped", "completed", "failed"]
+    summary: str = ""
+    error: str | None = None
+
+
 class AnalysisResult(BaseModel):
     task: AnalysisTask
     images: list[ExtractedImage] = Field(default_factory=list)
     references: list[ReferenceCheck] = Field(default_factory=list)
     evidence: list[EvidenceCard] = Field(default_factory=list)
+    model_review: ModelReview | None = None
     report_markdown: str

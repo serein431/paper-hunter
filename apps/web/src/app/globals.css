@@ -524,6 +524,7 @@ h1 {
 .pricing-grid,
 .pricing-advice,
 .position-band > div,
+.business-flow-strip,
 .launch-strip,
 .status-banner,
 .error-banner,
@@ -543,6 +544,85 @@ h1 {
 .team-grid {
   position: relative;
   z-index: 1;
+}
+
+.business-flow-strip {
+  align-items: center;
+  background: #101214;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 8px;
+  box-shadow: 0 22px 52px rgba(7, 9, 11, 0.1);
+  color: white;
+  display: grid;
+  gap: 12px;
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  margin-top: 22px;
+  padding: 14px;
+}
+
+.business-flow-strip span,
+.model-runtime-chip span {
+  color: var(--teal);
+  display: block;
+  font-size: 12px;
+  font-weight: 950;
+  line-height: 1;
+  margin-bottom: 6px;
+}
+
+.business-flow-strip strong {
+  display: block;
+  font-size: 16px;
+  line-height: 1.35;
+}
+
+.business-flow-strip button {
+  background: #fffdfa;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  color: var(--ink);
+  font-weight: 950;
+  min-height: 46px;
+  padding: 0 14px;
+}
+
+.model-runtime-chip {
+  align-items: center;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 8px;
+  display: grid;
+  gap: 0 9px;
+  grid-template-columns: auto auto auto;
+  min-height: 54px;
+  padding: 10px 12px;
+}
+
+.model-runtime-chip svg {
+  color: var(--teal);
+  grid-row: 1 / 3;
+}
+
+.model-runtime-chip span {
+  grid-column: 2 / 4;
+}
+
+.model-runtime-chip strong {
+  font-size: 14px;
+  line-height: 1;
+}
+
+.model-runtime-chip em {
+  border-radius: 999px;
+  color: #ffd8a5;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 950;
+  line-height: 1;
+}
+
+.model-runtime-chip.ready em {
+  color: #9ff2ce;
 }
 
 .story-lead h2,
@@ -2009,6 +2089,47 @@ h1 {
   padding: 7px 10px;
 }
 
+.model-status-card {
+  align-items: center;
+  background: #101214;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-left: 4px solid var(--amber);
+  border-radius: 8px;
+  color: white;
+  display: flex;
+  gap: 12px;
+  justify-content: space-between;
+  margin-top: 14px;
+  padding: 14px;
+}
+
+.model-status-card.ready {
+  border-left-color: var(--teal);
+}
+
+.model-status-card span {
+  color: var(--teal);
+  display: block;
+  font-size: 12px;
+  font-weight: 950;
+  margin-bottom: 6px;
+}
+
+.model-status-card strong {
+  display: block;
+  font-size: 17px;
+  line-height: 1.2;
+}
+
+.model-status-card em {
+  color: #d7ddd9;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 850;
+  line-height: 1.4;
+  max-width: 220px;
+}
+
 .model-save-row {
   align-items: center;
   display: flex;
@@ -2636,6 +2757,25 @@ h1 {
 
 .risk-number {
   color: var(--red);
+}
+
+.model-review-chip {
+  background: #f8efe6;
+  border: 1px solid #e8d1b6;
+  border-radius: 999px;
+  color: #a7631b;
+  display: inline-flex;
+  font-size: 13px;
+  font-weight: 950;
+  line-height: 1;
+  margin: 28px 0 12px;
+  padding: 8px 10px;
+}
+
+.model-review-chip.ready {
+  background: #eaf8f1;
+  border-color: #bfe7d2;
+  color: #148653;
 }
 
 .stack {
@@ -3604,6 +3744,11 @@ h1 {
     aspect-ratio: 16 / 8;
     min-height: 0;
   }
+
+  .business-flow-strip {
+    align-items: stretch;
+    grid-template-columns: 1fr;
+  }
 }
 
 @media (max-width: 720px) {
@@ -3718,6 +3863,7 @@ h1 {
   .story-grid,
   .market-grid,
   .loop-board,
+  .business-flow-strip,
   .audience-grid,
   .pricing-grid,
   .donation-panel,
@@ -3734,6 +3880,11 @@ h1 {
   .roadmap-visual,
   .team-grid {
     grid-template-columns: 1fr;
+  }
+
+  .model-status-card {
+    align-items: flex-start;
+    flex-direction: column;
   }
 
   .roadmap-visual::before,

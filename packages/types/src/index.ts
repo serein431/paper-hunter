@@ -76,7 +76,16 @@ export type AnalysisResult = {
   images: ExtractedImage[];
   references: ReferenceCheck[];
   evidence: EvidenceCard[];
+  model_review?: ModelReview | null;
   report_markdown: string;
+};
+
+export type ModelReview = {
+  provider: string;
+  model: string;
+  status: "skipped" | "completed" | "failed";
+  summary: string;
+  error?: string | null;
 };
 
 export type SampleCase = {

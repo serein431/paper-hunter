@@ -179,6 +179,45 @@ const evidenceCopy: Partial<
   }
 };
 
+const providerPresets = {
+  deepseek: {
+    display_name: "DeepSeek",
+    base_url: "https://api.deepseek.com/v1",
+    model: "deepseek-chat",
+    use_for: ["证据解释", "风险摘要", "报告润色"]
+  },
+  "openai-compatible": {
+    display_name: "OpenAI Compatible",
+    base_url: "https://api.openai.com/v1",
+    model: "gpt-4o-mini",
+    use_for: ["证据解释", "引用核验", "报告润色"]
+  },
+  qwen: {
+    display_name: "通义千问",
+    base_url: "https://dashscope.aliyuncs.com/compatible-mode/v1",
+    model: "qwen-plus",
+    use_for: ["证据解释", "风险摘要", "报告润色"]
+  },
+  gemini: {
+    display_name: "Gemini",
+    base_url: "https://generativelanguage.googleapis.com/v1beta/openai",
+    model: "gemini-2.5-flash",
+    use_for: ["证据解释", "风险摘要", "报告润色"]
+  },
+  claude: {
+    display_name: "Claude",
+    base_url: "https://api.anthropic.com/v1",
+    model: "claude-sonnet-4-5",
+    use_for: ["证据解释", "风险摘要", "报告润色"]
+  },
+  ollama: {
+    display_name: "本地 Ollama",
+    base_url: "http://localhost:11434/v1",
+    model: "qwen2.5:7b",
+    use_for: ["本地证据解释", "报告草稿"]
+  }
+} satisfies Record<string, Pick<ModelRuntimeConfig, "display_name" | "base_url" | "model" | "use_for">>;
+
 const reviewStatusLabel: Record<string, string> = {
   pending: "待复核",
   confirmed: "已确认",
@@ -197,14 +236,11 @@ const referenceStatusLabel: Record<string, string> = {
 };
 
 const defaultModelConfig: ModelRuntimeConfig = {
-  provider: "openai-compatible",
-  display_name: "OpenAI-compatible model",
-  base_url: "https://api.openai.com/v1",
-  model: "paper-reviewer-model",
+  provider: "deepseek",
+  ...providerPresets.deepseek,
   api_key_configured: false,
   temperature: 0.2,
-  use_for: ["证据解释", "引用核验", "报告润色"],
-  status: "waiting_for_user_model"
+  status: "waiting_for_api_key"
 };
 
 export default function Home() {
@@ -220,7 +256,7 @@ export default function Home() {
   const [modelConfig, setModelConfig] = useState<ModelRuntimeConfig>(defaultModelConfig);
   const [modelKey, setModelKey] = useState("");
   const [modelSaving, setModelSaving] = useState(false);
-  const [modelMessage, setModelMessage] = useState("等待配置团队自己的模型");
+  const [modelMessage, setModelMessage] = useState("默认 DeepSeek，等待配置 API Key");
   const [knowledgeBases, setKnowledgeBases] = useState<KnowledgeBaseConnector[]>([]);
   const [knowledgeQuery, setKnowledgeQuery] = useState("AI generated scientific paper detection");
   const [knowledgeResults, setKnowledgeResults] = useState<KnowledgeSearchResult[]>([]);
@@ -244,8 +280,14 @@ export default function Home() {
 
   useEffect(() => {
     fetchModelConfig()
-      .then(setModelConfig)
-      .catch(() => setModelConfig(defaultModelConfig));
+      .then((config) => {
+        setModelConfig(config);
+        setModelMessage(modelStatusMessage(config));
+      })
+      .catch(() => {
+        setModelConfig(defaultModelConfig);
+        setModelMessage(modelStatusMessage(defaultModelConfig));
+      });
     fetchKnowledgeBases()
       .then(setKnowledgeBases)
       .catch(() => {
@@ -289,6 +331,10 @@ export default function Home() {
 
   function scrollToAgent() {
     document.getElementById("agent-access")?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
+  function scrollToModelConfig() {
+    document.getElementById("model-config")?.scrollIntoView({ behavior: "smooth", block: "start" });
   }
 
   function updateDemoProgress(nextProgress: number) {
@@ -372,7 +418,7 @@ export default function Home() {
       const saved = await saveModelConfig({ ...modelConfig, api_key: modelKey });
       setModelConfig(saved);
       setModelKey("");
-      setModelMessage(saved.api_key_configured ? "模型已接入，密钥不会回显到前端" : "模型参数已保存，等待配置 API Key");
+      setModelMessage(modelStatusMessage(saved));
     } catch (saveError) {
       setModelMessage(saveError instanceof Error ? saveError.message : "模型配置保存失败");
     } finally {
@@ -449,6 +495,20 @@ export default function Home() {
           <p>
             Paper Hunter 会把论文拆成风险分、证据卡、图片对比、引用核验和报告，让复核者先看到问题在哪里。
           </p>
+        </div>
+
+        <div className="business-flow-strip" aria-label="Paper Hunter business flow">
+          <div>
+            <span>业务流</span>
+            <strong>PDF 上传 → 规则初筛 → {providerLabel(modelConfig.provider)} 辅助摘要 → 论文库核验 → 证据报告</strong>
+          </div>
+          <div className={modelConfig.api_key_configured ? "model-runtime-chip ready" : "model-runtime-chip"}>
+            <Cpu size={16} />
+            <span>优先模型</span>
+            <strong>{modelConfig.model}</strong>
+            <em>{modelConfig.api_key_configured ? "已接入" : "待配置 Key"}</em>
+          </div>
+          <button type="button" onClick={scrollToModelConfig}>配置模型</button>
         </div>
 
         <section className="launch-strip" aria-label="Paper scan launcher">
@@ -1332,7 +1392,7 @@ function ModelKnowledgeSection({
   const connectedCount = knowledgeBases.filter((base) => base.status === "connected").length;
 
   return (
-    <section className="model-knowledge-section">
+    <section className="model-knowledge-section" id="model-config">
       <div className="section-heading">
         <p className="eyebrow">模型与论文库</p>
         <h2>模型自己带，论文库系统接。</h2>
@@ -1351,11 +1411,7 @@ function ModelKnowledgeSection({
               <select
                 value={modelConfig.provider}
                 onChange={(event) =>
-                  onModelChange({
-                    ...modelConfig,
-                    provider: event.target.value,
-                    display_name: providerLabel(event.target.value)
-                  })
+                  onModelChange(applyProviderPreset(modelConfig, event.target.value))
                 }
               >
                 <option value="openai-compatible">OpenAI Compatible</option>
@@ -1404,6 +1460,13 @@ function ModelKnowledgeSection({
                 }
               />
             </label>
+          </div>
+          <div className={modelConfig.api_key_configured ? "model-status-card ready" : "model-status-card"}>
+            <div>
+              <span>当前优先模型</span>
+              <strong>{providerLabel(modelConfig.provider)} · {modelConfig.model}</strong>
+            </div>
+            <em>{modelConfig.api_key_configured ? "上传后会调用模型生成谨慎摘要" : "未配置 Key 时只跑确定性扫描"}</em>
           </div>
           <div className="model-capability-row">
             {modelConfig.use_for.map((item) => (
@@ -2039,6 +2102,41 @@ function providerLabel(provider: string) {
   return labels[provider] ?? provider;
 }
 
+function applyProviderPreset(config: ModelRuntimeConfig, provider: string): ModelRuntimeConfig {
+  const preset = providerPresets[provider as keyof typeof providerPresets];
+  if (!preset) {
+    return {
+      ...config,
+      provider,
+      display_name: providerLabel(provider),
+      status: config.api_key_configured ? "configured" : "waiting_for_api_key"
+    };
+  }
+  return {
+    ...config,
+    provider,
+    display_name: preset.display_name,
+    base_url: preset.base_url,
+    model: preset.model,
+    use_for: preset.use_for,
+    status: config.api_key_configured ? "configured" : "waiting_for_api_key"
+  };
+}
+
+function modelStatusMessage(config: ModelRuntimeConfig) {
+  if (config.api_key_configured) {
+    return `${providerLabel(config.provider)} 已接入，密钥不会回显到前端`;
+  }
+  return `${providerLabel(config.provider)} 参数已就绪，等待配置 API Key`;
+}
+
+function modelReviewLabel(status: string | undefined) {
+  if (status === "completed") return "已调用";
+  if (status === "failed") return "调用失败";
+  if (status === "skipped") return "未启用";
+  return "等待扫描";
+}
+
 function Metric({ label, value, tone }: { label: string; value: string; tone?: "risk" }) {
   return (
     <div className={tone === "risk" ? "metric risk" : "metric"}>
@@ -2067,9 +2165,11 @@ function Dashboard({ result }: { result: AnalysisResult }) {
         <div className="big-count">{figure.length}</div>
         <p>系统比较 PDF 内嵌图片候选，帮助复核者优先查看相似图片。</p>
       </Panel>
-      <Panel title="AI 审稿风险" icon={<ShieldCheck size={18} />}>
-        <div className="big-count">{hidden.length}</div>
-        <p>检测隐藏文本层中的 AI 审稿指令模式。</p>
+      <Panel title="模型辅助" icon={<Cpu size={18} />}>
+        <div className={result.model_review?.status === "completed" ? "model-review-chip ready" : "model-review-chip"}>
+          {modelReviewLabel(result.model_review?.status)}
+        </div>
+        <p>{result.model_review?.summary || `检测到 ${hidden.length} 条 AI 审稿风险，模型摘要等待配置后生成。`}</p>
       </Panel>
     </div>
   );
