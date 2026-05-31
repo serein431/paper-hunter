@@ -719,7 +719,7 @@ function MarketReality() {
       <div className="market-thesis">
         <Sparkles size={22} />
         <div>
-          <strong>Paper Hunter 的切入点不是替人下判决，而是让每一次质疑先回到证据。</strong>
+          <strong>Paper Hunter 的切入点很简单：每一次质疑先回到证据。</strong>
           <p>先免费筛风险，再把疑点做成可追问、可复查、可交给机构流程处理的证据包。</p>
         </div>
       </div>
@@ -739,7 +739,7 @@ function StoryStrip() {
     <section className="story-strip" id="philosophy">
       <div className="story-lead">
         <p className="eyebrow">产品理念</p>
-        <h2>我们不是来当法官，而是守住人类智慧结晶的一层生态。</h2>
+        <h2>守住真正属于人类智慧结晶的生态层。</h2>
         <p className="story-lead-sub">
           让每一次质疑都回到证据，让真正由人完成的思想、实验和方法，被看见、被保护、被可信地传下去。
         </p>
@@ -822,7 +822,7 @@ function AiLoopStory() {
       <div className="loop-punchline">
         <Sparkles size={20} />
         <div>
-          <h3>Paper Hunter 要做的不是反 AI，而是给这个循环加一张可追溯的风险底片。</h3>
+          <h3>Paper Hunter 给这个循环加一张可追溯的风险底片。</h3>
           <p>谁都可以用 AI，但每篇论文都应该留下证据：哪里可疑、为什么可疑、下一步该人工核验什么。</p>
         </div>
       </div>
@@ -859,7 +859,7 @@ function OnsiteDemo({
         <p className="eyebrow">现场演示</p>
         <h2>点击一次，真的跑完一篇论文扫描。</h2>
         <p>
-          这不是静态截图。开始扫描后，系统会调用后端分析一篇带有风险信号的 PDF，并把进度、日志、风险分和证据卡同步展示出来。
+          这是一段真实流程演示。开始扫描后，系统会调用后端分析一篇带有风险信号的 PDF，并把进度、日志、风险分和证据卡同步展示出来。
         </p>
         <div className="demo-actions">
           <button className="primary-action" type="button" onClick={onRunDemo} disabled={loading}>
@@ -968,7 +968,7 @@ function AudienceSection() {
       <div className="section-heading">
         <p className="eyebrow">用户群体</p>
         <h2>谁会第一时间需要它？</h2>
-        <p>不是所有人都要做学术调查，但很多人都需要一个便宜、快速、能解释的风险入口。</p>
+        <p>很多人不做完整学术调查，也需要一个便宜、快速、能解释的风险入口。</p>
       </div>
       <div className="audience-grid">
         <AudienceCard
@@ -1010,7 +1010,7 @@ function PositioningSection() {
         <Principle icon={<Scale size={18} />} text="不输出学术不端判决，只输出可复核证据。" />
         <Principle icon={<LockKeyhole size={18} />} text="演示环境不做长期保存，生产版接机构私有存储。" />
         <Principle icon={<Timer size={18} />} text="把几小时人工初筛压缩成一分钟以内的复核反馈。" />
-        <Principle icon={<Sparkles size={18} />} text="AI 不是裁判，是帮复核者少漏看一眼的助手。" />
+        <Principle icon={<Sparkles size={18} />} text="AI 负责补一遍漏看风险，最终判断仍交给复核者。" />
       </div>
     </section>
   );
@@ -1424,7 +1424,7 @@ function TechnicalImplementation() {
         <p className="eyebrow">技术实现逻辑</p>
         <h2>从一篇 PDF 到一组可复核证据。</h2>
         <p>
-          Paper Hunter 不靠一句“AI 觉得可疑”下结论。它把论文拆开，分别检查图片、文本和引用线索，
+          Paper Hunter 避免用一句“AI 觉得可疑”下结论。它把论文拆开，分别检查图片、文本和引用线索，
           再把每个疑点包装成能被人工追问、复查和导出的证据卡。
         </p>
       </div>
@@ -1499,7 +1499,7 @@ function ProductRoadmap() {
       icon: <ShieldCheck size={24} />,
       label: "02",
       title: "真人撰写可信认证",
-      body: "结合写作过程指纹、身份 ID、时间线和可选区块链存证，为真人完成的学术工作建立可复核证明，而不是只在交稿后追问结果。"
+      body: "结合写作过程指纹、身份 ID、时间线和可选区块链存证，把真人完成的学术工作从写作过程开始做成可复核证明。"
     },
     {
       icon: <Database size={24} />,
@@ -1511,7 +1511,7 @@ function ProductRoadmap() {
       icon: <Rocket size={24} />,
       label: "04",
       title: "AGI 贡献",
-      body: "AI 应该建立在人类高等智慧的结晶之上，而不是互联网数字噪声的堆砌。Paper Hunter 要把可信论文与思想沉淀成面向 AGI 的干净知识底座。"
+      body: "AI 应该建立在人类高等智慧的结晶之上，远离互联网数字噪声的堆砌。Paper Hunter 要把可信论文与思想沉淀成面向 AGI 的干净知识底座。"
     }
   ];
 
@@ -1521,8 +1521,7 @@ function ProductRoadmap() {
         <p className="eyebrow">Product Roadmap</p>
         <h2>从论文打假，走向可信人类智慧基础设施。</h2>
         <p>
-          Paper Hunter 的长期目标不是制造更多判决，而是把学术生产过程里的“人、证据、机构和知识资产”
-          重新连接起来。
+          Paper Hunter 的长期目标，是把学术生产过程里的“人、证据、机构和知识资产”重新连接起来。
         </p>
       </div>
 
