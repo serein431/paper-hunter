@@ -1,5 +1,9 @@
 # Paper Hunter / 论文打假人
 
+Hackathon tag: `#2026AIAgent清客松`
+
+Website: [https://paperhunt.lol](https://paperhunt.lol)
+
 Paper Hunter is a hackathon MVP for research-integrity evidence discovery. It uploads or launches a paper PDF, extracts image and text signals, creates reviewable evidence cards, and generates a cautious Markdown report.
 
 The product does not decide that a paper or author committed misconduct. It finds suspicious signals that need human review, original data, and institutional process.

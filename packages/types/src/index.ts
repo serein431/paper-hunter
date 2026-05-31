@@ -85,3 +85,43 @@ export type SampleCase = {
   description: string;
   source_type: string;
 };
+
+export type ModelRuntimeConfig = {
+  provider: string;
+  display_name: string;
+  base_url: string;
+  model: string;
+  api_key_configured: boolean;
+  temperature: number;
+  use_for: string[];
+  status: string;
+};
+
+export type KnowledgeBaseConnector = {
+  id: string;
+  name: string;
+  coverage: string;
+  auth: string;
+  status: string;
+  endpoint: string;
+  capabilities: string[];
+  note: string;
+};
+
+export type KnowledgeSearchResult = {
+  source: string;
+  title: string;
+  year?: number | null;
+  authors: string[];
+  venue?: string | null;
+  doi?: string | null;
+  url?: string | null;
+  citation_count?: number | null;
+  evidence_role: string;
+};
+
+export type KnowledgeSearchResponse = {
+  query: string;
+  connectors: KnowledgeBaseConnector[];
+  results: KnowledgeSearchResult[];
+};

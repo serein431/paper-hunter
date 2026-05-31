@@ -1,4 +1,10 @@
-import type { AnalysisResult, SampleCase } from "@paper-hunter/types";
+import type {
+  AnalysisResult,
+  KnowledgeBaseConnector,
+  KnowledgeSearchResponse,
+  ModelRuntimeConfig,
+  SampleCase
+} from "@paper-hunter/types";
 
 const API_BASE = process.env.NEXT_PUBLIC_API_BASE ?? "";
 
@@ -39,4 +45,32 @@ export async function uploadPdf(file: File): Promise<AnalysisResult> {
       body: form
     })
   );
+}
+
+export async function fetchModelConfig(): Promise<ModelRuntimeConfig> {
+  return parseResponse<ModelRuntimeConfig>(await fetch(`${API_BASE}/api/model-config`));
+}
+
+export async function saveModelConfig(
+  config: ModelRuntimeConfig & { api_key?: string }
+): Promise<ModelRuntimeConfig> {
+  return parseResponse<ModelRuntimeConfig>(
+    await fetch(`${API_BASE}/api/model-config`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(config)
+    })
+  );
+}
+
+export async function fetchKnowledgeBases(): Promise<KnowledgeBaseConnector[]> {
+  const data = await parseResponse<{ connectors: KnowledgeBaseConnector[] }>(
+    await fetch(`${API_BASE}/api/knowledge-bases`)
+  );
+  return data.connectors;
+}
+
+export async function searchKnowledgeBases(query: string, limit = 8): Promise<KnowledgeSearchResponse> {
+  const params = new URLSearchParams({ query, limit: String(limit) });
+  return parseResponse<KnowledgeSearchResponse>(await fetch(`${API_BASE}/api/knowledge-search?${params}`));
 }

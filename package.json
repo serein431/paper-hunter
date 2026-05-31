@@ -2,10 +2,16 @@
   "name": "paper-hunter",
   "private": true,
   "version": "0.1.0",
+  "homepage": "https://paperhunt.lol",
   "scripts": {
     "web:dev": "pnpm --filter @paper-hunter/web dev",
     "web:build": "pnpm --filter @paper-hunter/web build",
     "web:typecheck": "pnpm --filter @paper-hunter/web typecheck"
   },
-  "packageManager": "pnpm@11.3.0"
+  "packageManager": "pnpm@11.3.0",
+  "devDependencies": {
+    "next": "^15.5.18",
+    "react": "^19.2.6",
+    "react-dom": "^19.2.6"
+  }
 }

@@ -1,0 +1,12 @@
+.git
+.codex-run
+work
+node_modules
+apps/web/.next
+apps/api/.vercel
+storage/uploads
+storage/artifacts
+storage/samples/private
+**/__pycache__
+**/*.pyc
+**/.pytest_cache

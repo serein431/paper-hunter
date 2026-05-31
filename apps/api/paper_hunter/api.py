@@ -7,11 +7,17 @@ from typing import Annotated
 from fastapi import FastAPI, File, Form, HTTPException, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
+from paper_hunter.knowledge_bases import (
+    KnowledgeBaseConnector,
+    KnowledgeSearchResponse,
+    list_connectors,
+    search_knowledge_bases,
+)
 from paper_hunter.models import AnalysisResult, ReviewStatus
 from paper_hunter.orchestrator import AnalysisOrchestrator
-from scripts.generate_synthetic_sample import build_synthetic_pdf
+from paper_hunter.synthetic_sample import build_synthetic_pdf
 
 app = FastAPI(title="Paper Hunter API", version="0.1.0")
 app.add_middleware(
@@ -23,6 +29,7 @@ app.add_middleware(
 )
 
 TASKS: dict[str, AnalysisResult] = {}
+MODEL_SECRET_CACHE: dict[str, str] = {}
 
 
 class SampleCase(BaseModel):
@@ -41,8 +48,46 @@ class ReviewPatch(BaseModel):
     reviewer_note: str = ""
 
 
+class ModelRuntimeConfigIn(BaseModel):
+    provider: str = "openai-compatible"
+    display_name: str = "OpenAI-compatible model"
+    base_url: str = "https://api.openai.com/v1"
+    model: str = "paper-reviewer-model"
+    api_key: str = ""
+    temperature: float = Field(default=0.2, ge=0.0, le=2.0)
+    use_for: list[str] = Field(default_factory=lambda: ["证据解释", "引用核验", "报告润色"])
+
+
+class ModelRuntimeConfig(BaseModel):
+    provider: str
+    display_name: str
+    base_url: str
+    model: str
+    api_key_configured: bool
+    temperature: float
+    use_for: list[str]
+    status: str
+
+
+MODEL_CONFIG = ModelRuntimeConfig(
+    provider="openai-compatible",
+    display_name="OpenAI-compatible model",
+    base_url="https://api.openai.com/v1",
+    model="paper-reviewer-model",
+    api_key_configured=False,
+    temperature=0.2,
+    use_for=["证据解释", "引用核验", "报告润色"],
+    status="waiting_for_user_model",
+)
+
+
+class KnowledgeBasesResponse(BaseModel):
+    connectors: list[KnowledgeBaseConnector]
+
+
 def storage_root() -> Path:
-    return Path(os.environ.get("PAPER_HUNTER_STORAGE", "storage"))
+    default_root = "/tmp/paper-hunter-storage" if os.environ.get("VERCEL") else "storage"
+    return Path(os.environ.get("PAPER_HUNTER_STORAGE", default_root))
 
 
 def samples() -> list[SampleCase]:
@@ -50,7 +95,10 @@ def samples() -> list[SampleCase]:
         SampleCase(
             id="synthetic-paper",
             name="Synthetic integrity review sample",
-            description="Generated PDF with controlled duplicate-image, DOI, and hidden prompt signals.",
+            description=(
+                "Generated PDF with controlled duplicate-image, DOI, "
+                "and hidden prompt signals."
+            ),
             source_type="generated",
         ),
         SampleCase(
@@ -68,6 +116,42 @@ def samples() -> list[SampleCase]:
 @app.get("/api/health")
 def health() -> dict[str, str]:
     return {"status": "ok", "service": "paper-hunter-api"}
+
+
+@app.get("/api/model-config", response_model=ModelRuntimeConfig)
+def get_model_config() -> ModelRuntimeConfig:
+    return MODEL_CONFIG
+
+
+@app.post("/api/model-config", response_model=ModelRuntimeConfig)
+def update_model_config(config: ModelRuntimeConfigIn) -> ModelRuntimeConfig:
+    global MODEL_CONFIG
+    cleaned_key = config.api_key.strip()
+    if cleaned_key:
+        MODEL_SECRET_CACHE["review_model"] = cleaned_key
+    MODEL_CONFIG = ModelRuntimeConfig(
+        provider=config.provider,
+        display_name=config.display_name,
+        base_url=str(config.base_url).rstrip("/"),
+        model=config.model,
+        api_key_configured=bool(cleaned_key or MODEL_SECRET_CACHE.get("review_model")),
+        temperature=config.temperature,
+        use_for=config.use_for,
+        status="configured",
+    )
+    return MODEL_CONFIG
+
+
+@app.get("/api/knowledge-bases", response_model=KnowledgeBasesResponse)
+def get_knowledge_bases() -> KnowledgeBasesResponse:
+    return KnowledgeBasesResponse(connectors=list_connectors())
+
+
+@app.get("/api/knowledge-search", response_model=KnowledgeSearchResponse)
+async def knowledge_search(query: str, limit: int = 8) -> KnowledgeSearchResponse:
+    if not query.strip():
+        raise HTTPException(status_code=400, detail="Provide a query.")
+    return await search_knowledge_bases(query.strip(), limit=limit)
 
 
 @app.get("/api/samples", response_model=SamplesResponse)
