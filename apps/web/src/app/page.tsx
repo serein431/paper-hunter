@@ -567,7 +567,10 @@ function Hero({
       <div className="hero-copy">
         <div className="hero-manifesto">
           <p className="hero-domain-word">paperhunt.lol</p>
-          <h1>lol 可以是😀，学术不能是玩笑。</h1>
+          <h1>
+            <span>lol 可以是😀，</span>
+            <span>学术不能是玩笑。</span>
+          </h1>
           <p>任何质疑，都必须回到可复核证据。</p>
         </div>
 
@@ -733,10 +736,13 @@ function MarketReality() {
 
 function StoryStrip() {
   return (
-    <section className="story-strip">
+    <section className="story-strip" id="philosophy">
       <div className="story-lead">
         <p className="eyebrow">产品理念</p>
-        <h2>我们不当法官，我们当第一道安检门。</h2>
+        <h2>我们不是来当法官，而是守住人类智慧结晶的一层生态。</h2>
+        <p className="story-lead-sub">
+          让每一次质疑都回到证据，让真正由人完成的思想、实验和方法，被看见、被保护、被可信地传下去。
+        </p>
       </div>
       <div className="story-grid">
         <MiniClaim
