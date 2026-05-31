@@ -1587,8 +1587,8 @@ function TeamSection() {
     <section className="team-section">
       <div className="team-heading">
         <p className="eyebrow">团队介绍</p>
-        <h2>做一个能上场演示的科研诚信产品。</h2>
-        <p>我们把产品表达、工程实现和精神电量放在同一条线上：先让大家看懂，再让系统跑起来。</p>
+        <h2>清松Labs</h2>
+        <p>所有伟大的产品都来源自一个简单的想法，不要停止创造，创造改变世界。</p>
       </div>
       <div className="team-grid">
         {members.map((member) => (
