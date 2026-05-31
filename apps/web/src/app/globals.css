@@ -2780,8 +2780,10 @@ h1 {
 
 .model-review-summary {
   display: -webkit-box;
-  line-clamp: 7;
+  -webkit-line-clamp: 6;
+  line-clamp: 6;
   -webkit-box-orient: vertical;
+  max-height: 10.2em;
   overflow: hidden;
 }
 
