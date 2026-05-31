@@ -1927,8 +1927,8 @@ function TeamSection() {
       role: "全栈工程师",
       scope: "AI 安全、安全智能体",
       body: "本科网络空间安全，即将保研到中科院软件所。主要做 AI 安全和安全智能体方向，目前在阿里安全 AGI 实验室做安全大模型和 CTF Agent 相关工作，也在清华 Vul337 实验室做过 LLM 与二进制逆向研究。",
-      qr: demoGroupQr,
-      contactHint: "扫码进入 Demo 体验群，留言戈洋可现场联系。",
+      qr: "/assets/team/goyang-qr.jpg",
+      contactHint: "扫码添加戈洋微信，交流 AI 安全、安全智能体和技术实现。",
       proofs: ["猎豹移动黑客松冠军", "超越之路个人赛道冠军", "BEYOND Expo 黑客松特等奖", "参与阿里息壤安全大模型技术手册撰写"]
     },
     {
