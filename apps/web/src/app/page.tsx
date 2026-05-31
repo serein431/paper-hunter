@@ -68,6 +68,36 @@ const severityLabel: Record<string, string> = {
   critical: "严重"
 };
 
+const agentOnboardingPrompt = `你是一个接入 Paper Hunter 的科研诚信 Agent。
+
+目标：
+不要直接判定论文造假，只输出可复核证据、风险优先级和下一步人工核验建议。
+
+服务地址：
+https://paper-hunter-api.vercel.app
+
+可用接口：
+1. 健康检查：GET /api/health
+2. 查看演示样例：GET /api/samples
+3. 创建扫描任务：POST /api/tasks
+   - multipart sample_id=synthetic-paper，可跑演示样例
+   - multipart file=@paper.pdf，可上传真实 PDF
+4. 查询扫描结果：GET /api/tasks/{task_id}
+5. 获取证据卡：GET /api/tasks/{task_id}/evidence
+6. 导出 Markdown 报告：GET /api/tasks/{task_id}/report
+7. 跨论文库检索：GET /api/knowledge-search?query={title_or_doi}&limit=8
+
+工作流程：
+1. 先确认用户要扫描样例还是上传 PDF。
+2. 调用 /api/tasks 创建任务，拿到 task_id、risk_score、evidence。
+3. 把 evidence 按严重程度排序，解释每条证据的方法、位置、置信度和建议动作。
+4. 如涉及 DOI、题名、作者或引用问题，调用 /api/knowledge-search 做外部论文库核验。
+5. 最后输出「风险摘要」「证据卡」「需要人工复核的材料」「谨慎结论」。
+
+语言边界：
+禁止使用“实锤”“论文造假已成立”“作者伪造数据”等最终判决。
+统一使用“疑似异常”“需要结合原始数据进一步复核”“当前证据不足以支持最终结论”。`;
+
 const proofPoints = [
   "免费初筛",
   "疑点触发付费",
@@ -392,6 +422,7 @@ export default function Home() {
         onModelKeyChange={setModelKey}
         onModelSave={() => void handleSaveModelConfig()}
       />
+      <AgentIntegrationSection />
 
       <section className="demo-section" id="live-demo">
         <div className="section-heading">
@@ -531,21 +562,23 @@ function Hero({
       </nav>
 
       <div className="hero-copy">
-        <div className="hero-kicker-row">
-          <p className="eyebrow">面向 AI 论文时代的科研诚信工具</p>
-          <span>#2026AIAgent清客松</span>
+        <div className="hero-manifesto">
+          <p className="hero-domain-word">paperhunt.lol</p>
+          <h1>不是在开玩笑。</h1>
+          <p>学术是严谨的事，任何质疑都必须回到可复核证据。</p>
         </div>
-        <h1>
-          <span>Paper Hunter</span>
-          <span className="title-cn">论文打假人</span>
-        </h1>
-        <p className="hero-lede">
-          上传论文 PDF，先免费完成风险初筛。没有疑点，流程结束；出现风险信号，再解锁证据卡、图像对比和复核报告。
-        </p>
-        <p className="hero-domain-line">
-          <span>paperhunt.lol</span>
-          不是在开玩笑。学术是严谨的事，任何质疑都必须回到可复核证据。
-        </p>
+
+        <div className="hero-product-intro">
+          <div className="hero-kicker-row">
+            <p className="eyebrow">面向 AI 论文时代的科研诚信工具</p>
+            <span>#2026AIAgent清客松</span>
+          </div>
+          <strong>Paper Hunter · 论文打假人</strong>
+          <p className="hero-lede">
+            上传论文 PDF，先免费完成风险初筛。没有疑点，流程结束；出现风险信号，再解锁证据卡、图像对比和复核报告。
+          </p>
+        </div>
+
         <div className="hero-actions">
           <button className="primary-action" type="button" onClick={onRunDemo} disabled={loading}>
             <Rocket size={18} />
@@ -1074,7 +1107,128 @@ function ModelKnowledgeSection({
               </div>
             )}
           </div>
+          <div className="knowledge-partner-callout">
+            <Users size={24} />
+            <div>
+              <strong>欢迎各大论文库和机构合作</strong>
+              <p>机构合作免费。我们先用爱发电，把科研诚信基础设施做起来。</p>
+            </div>
+          </div>
         </article>
+      </div>
+    </section>
+  );
+}
+
+function AgentIntegrationSection() {
+  const [copyState, setCopyState] = useState("复制给 Agent");
+  const endpoints = [
+    { label: "创建扫描", value: "POST /api/tasks" },
+    { label: "读取证据", value: "GET /api/tasks/{task_id}" },
+    { label: "论文库核验", value: "GET /api/knowledge-search" },
+    { label: "导出报告", value: "GET /api/tasks/{task_id}/report" }
+  ];
+
+  async function copyOnboarding() {
+    const fallbackCopy = () => {
+      const textarea = document.createElement("textarea");
+      textarea.value = agentOnboardingPrompt;
+      textarea.setAttribute("readonly", "");
+      textarea.style.left = "-9999px";
+      textarea.style.position = "fixed";
+      document.body.appendChild(textarea);
+      textarea.select();
+      const copied = document.execCommand("copy");
+      textarea.remove();
+      return copied;
+    };
+
+    try {
+      let copied = false;
+      if (navigator.clipboard?.writeText && window.isSecureContext) {
+        try {
+          await Promise.race([
+            navigator.clipboard.writeText(agentOnboardingPrompt),
+            new Promise((_, reject) => window.setTimeout(() => reject(new Error("Clipboard timeout")), 900))
+          ]);
+          copied = true;
+        } catch {
+          copied = fallbackCopy();
+        }
+      }
+      if (!copied) {
+        copied = fallbackCopy();
+      }
+      if (!copied) {
+        throw new Error("Copy failed");
+      }
+      setCopyState("已复制，可直接发给 Agent");
+      window.setTimeout(() => setCopyState("复制给 Agent"), 2200);
+    } catch {
+      setCopyState("复制失败，请手动选中文本");
+      window.setTimeout(() => setCopyState("复制给 Agent"), 2600);
+    }
+  }
+
+  return (
+    <section className="agent-section">
+      <div className="agent-heading">
+        <p className="eyebrow">Agent 接入</p>
+        <h2>不打开 Web UI，Agent 也能直接开工。</h2>
+        <p>
+          给 Agent 一段 onboarding，它就知道怎么上传论文、调用扫描接口、跨库核验、导出证据报告。
+          适合接入科研助手、审稿助手、机构内部工作流和自动化复核系统。
+        </p>
+      </div>
+
+      <div className="agent-grid">
+        <div className="agent-flow-card">
+          <div className="panel-kicker">
+            <Cpu size={20} />
+            <span>接入方式</span>
+          </div>
+          <div className="agent-flow">
+            <article>
+              <span>01</span>
+              <strong>复制 onboarding</strong>
+              <p>把右侧任务卡交给你的 Agent，不需要它理解页面。</p>
+            </article>
+            <ArrowRight size={18} />
+            <article>
+              <span>02</span>
+              <strong>Agent 调接口</strong>
+              <p>上传 PDF 或跑样例，拿到风险分、证据卡和报告。</p>
+            </article>
+            <ArrowRight size={18} />
+            <article>
+              <span>03</span>
+              <strong>回写工作流</strong>
+              <p>把疑点、证据和人工复核建议发回审稿/教学系统。</p>
+            </article>
+          </div>
+          <div className="agent-endpoints">
+            {endpoints.map((endpoint) => (
+              <div key={endpoint.label}>
+                <span>{endpoint.label}</span>
+                <strong>{endpoint.value}</strong>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="agent-prompt-card">
+          <div className="agent-prompt-topbar">
+            <div>
+              <span>AGENT_ONBOARDING.md</span>
+              <strong>复制后直接投喂给 Agent</strong>
+            </div>
+            <button type="button" onClick={() => void copyOnboarding()}>
+              <ClipboardCheck size={16} />
+              {copyState}
+            </button>
+          </div>
+          <pre>{agentOnboardingPrompt}</pre>
+        </div>
       </div>
     </section>
   );
