@@ -554,6 +554,7 @@ export default function Home() {
       <TechnicalImplementation />
       <ProductRoadmap />
       <TeamSection />
+      <AcknowledgementsSection />
     </main>
   );
 }
@@ -1835,6 +1836,25 @@ function TeamSection() {
               </div>
             </div>
           </article>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function AcknowledgementsSection() {
+  const acknowledgements = ["五道口产品观察", "观猹", "epark", "OpenAI", "DeepSeek"];
+
+  return (
+    <section className="ack-section" id="acknowledgements">
+      <div className="ack-copy">
+        <p className="eyebrow">特别鸣谢</p>
+        <h2>感谢这些社区、伙伴与技术生态。</h2>
+        <p>他们给 Paper Hunter 的产品思考、Agent 体验、技术实现和现场表达带来了灵感与支持。</p>
+      </div>
+      <div className="ack-list" aria-label="特别鸣谢名单">
+        {acknowledgements.map((name) => (
+          <span key={name}>{name}</span>
         ))}
       </div>
     </section>
