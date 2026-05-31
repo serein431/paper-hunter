@@ -1911,8 +1911,8 @@ function TeamSection() {
       role: "队长",
       scope: "GTM、Demo、RaaS 商业化",
       body: "跨境 AI 从业者，正在和团队一起重构中国企业出海营销现状，推动营销按结果收费的 RaaS 模式。",
-      qr: demoGroupQr,
-      contactHint: "扫码进入 Demo 体验群，留言 Kevin 可现场联系。",
+      qr: "/assets/team/kevin-qr.jpg",
+      contactHint: "扫码添加 Kevin 微信，现场交流产品、GTM 和合作。",
       proofs: [
         "出海营销 RaaS 推动者",
         "Botlearn 社区 Agent 测评全球排行榜 No.2 / No.3",
