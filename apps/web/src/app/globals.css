@@ -442,6 +442,70 @@ h1 {
   width: 100%;
 }
 
+.generated-visual-card {
+  background: #101214;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 8px;
+  box-shadow: 0 28px 70px rgba(7, 9, 11, 0.16);
+  margin: 0;
+  overflow: hidden;
+  position: relative;
+  z-index: 1;
+}
+
+.generated-visual-card::after {
+  background:
+    linear-gradient(180deg, transparent 38%, rgba(5, 8, 10, 0.86) 100%),
+    linear-gradient(90deg, rgba(5, 8, 10, 0.18), transparent 48%);
+  content: "";
+  inset: 0;
+  pointer-events: none;
+  position: absolute;
+}
+
+.generated-visual-card img {
+  display: block;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1.01);
+  transition: transform 680ms ease;
+  width: 100%;
+}
+
+.generated-visual-card:hover img {
+  transform: scale(1.045);
+}
+
+.generated-visual-card figcaption {
+  bottom: 20px;
+  color: white;
+  left: 20px;
+  max-width: min(520px, calc(100% - 40px));
+  position: absolute;
+  right: 20px;
+  z-index: 1;
+}
+
+.generated-visual-card figcaption span {
+  background: rgba(48, 200, 206, 0.18);
+  border: 1px solid rgba(48, 200, 206, 0.34);
+  border-radius: 999px;
+  color: #d9fffd;
+  display: inline-flex;
+  font-size: 12px;
+  font-weight: 950;
+  line-height: 1;
+  padding: 8px 10px;
+}
+
+.generated-visual-card figcaption strong {
+  display: block;
+  font-size: 24px;
+  line-height: 1.22;
+  margin-top: 10px;
+  text-wrap: balance;
+}
+
 .story-lead,
 .story-grid,
 .product-video-copy,
@@ -530,6 +594,11 @@ h1 {
   font-size: 19px;
   line-height: 1.65;
   margin: 18px 0 0;
+}
+
+.market-visual-panel {
+  aspect-ratio: 16 / 6.4;
+  margin-top: 30px;
 }
 
 .market-grid {
@@ -680,11 +749,30 @@ h1 {
   max-width: 860px;
 }
 
+.ai-loop-visual-grid {
+  align-items: stretch;
+  display: grid;
+  gap: 18px;
+  grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
+  margin-top: 30px;
+  position: relative;
+  z-index: 1;
+}
+
+.ai-loop-image-panel {
+  min-height: 534px;
+}
+
 .loop-board {
   display: grid;
   gap: 12px;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   margin-top: 30px;
+}
+
+.ai-loop-visual-grid .loop-board {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin-top: 0;
 }
 
 .loop-step {
@@ -3085,6 +3173,11 @@ h1 {
   margin: 18px 0 0;
 }
 
+.roadmap-image-panel {
+  aspect-ratio: 16 / 5.6;
+  margin-top: 32px;
+}
+
 .roadmap-visual {
   background:
     linear-gradient(135deg, rgba(48, 200, 206, 0.16), transparent 38%),
@@ -3465,6 +3558,7 @@ h1 {
   .story-strip,
   .product-video-section,
   .ai-loop-section,
+  .ai-loop-visual-grid,
   .trial-layout,
   .onsite-demo-section,
   .position-band,
@@ -3504,6 +3598,11 @@ h1 {
 
   .summary-rail {
     min-height: auto;
+  }
+
+  .ai-loop-image-panel {
+    aspect-ratio: 16 / 8;
+    min-height: 0;
   }
 }
 
@@ -3587,6 +3686,10 @@ h1 {
 
   .hero-metrics strong {
     font-size: 22px;
+  }
+
+  .generated-visual-card figcaption strong {
+    font-size: 20px;
   }
 
   .proof-row {

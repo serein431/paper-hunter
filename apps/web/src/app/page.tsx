@@ -709,12 +709,25 @@ function MarketReality() {
   ];
 
   return (
-    <section className="market-section">
+    <section className="market-section" id="market">
       <div className="market-copy">
         <p className="eyebrow">市场现实</p>
         <h2>论文不应该变成互联网知识的 slop。</h2>
         <p>论文是思想、实验和方法的结晶。AI 生成、发表压力和论文工厂，让可信知识需要新的基础设施。</p>
       </div>
+
+      <figure className="generated-visual-card market-visual-panel">
+        <img
+          src="/assets/generated/paper-flow-evidence.jpg"
+          alt="海量论文流向证据网格的科研诚信视觉图"
+          loading="lazy"
+          decoding="async"
+        />
+        <figcaption>
+          <span>论文洪流</span>
+          <strong>从论文洪流，进入可复核证据网格。</strong>
+        </figcaption>
+      </figure>
 
       <div className="market-grid" aria-label="Academic integrity market signals">
         {marketStats.map((stat) => (
@@ -801,7 +814,7 @@ function AiLoopStory() {
   ];
 
   return (
-    <section className="ai-loop-section">
+    <section className="ai-loop-section" id="ai-loop">
       <div className="ai-loop-copy">
         <p className="eyebrow">AI 论文循环</p>
         <h2>一篇论文开始在 AI 之间来回传球。</h2>
@@ -811,23 +824,38 @@ function AiLoopStory() {
         </p>
       </div>
 
-      <div className="loop-board" aria-label="AI paper revision loop">
-        {steps.map((step, index) => (
-          <article className="loop-step" key={`${step.actor}-${step.title}`}>
-            <span className="step-number">{String(index + 1).padStart(2, "0")}</span>
-            <strong>{step.actor}</strong>
-            <h3>{step.title}</h3>
-            <p>{step.body}</p>
-            {index < steps.length - 1 ? (
-              <ArrowRight className="step-arrow" size={18} />
-            ) : (
-              <span className="loop-back">
-                <ArrowRight size={16} />
-                回到下一轮
-              </span>
-            )}
-          </article>
-        ))}
+      <div className="ai-loop-visual-grid">
+        <figure className="generated-visual-card ai-loop-image-panel">
+          <img
+            src="/assets/generated/ai-review-loop.jpg"
+            alt="AI 写作与 AI 批改在论文修改中循环的视觉图"
+            loading="lazy"
+            decoding="async"
+          />
+          <figcaption>
+            <span>AI 循环</span>
+            <strong>写作、批改、再改写，开始在模型之间循环。</strong>
+          </figcaption>
+        </figure>
+
+        <div className="loop-board" aria-label="AI paper revision loop">
+          {steps.map((step, index) => (
+            <article className="loop-step" key={`${step.actor}-${step.title}`}>
+              <span className="step-number">{String(index + 1).padStart(2, "0")}</span>
+              <strong>{step.actor}</strong>
+              <h3>{step.title}</h3>
+              <p>{step.body}</p>
+              {index < steps.length - 1 ? (
+                <ArrowRight className="step-arrow" size={18} />
+              ) : (
+                <span className="loop-back">
+                  <ArrowRight size={16} />
+                  回到下一轮
+                </span>
+              )}
+            </article>
+          ))}
+        </div>
       </div>
 
       <div className="loop-punchline">
@@ -1761,6 +1789,19 @@ function ProductRoadmap() {
         <h2>从论文打假，走向可信人类智慧基础设施。</h2>
         <p>把学术生产过程里的“人、证据、机构和知识资产”重新连接起来。</p>
       </div>
+
+      <figure className="generated-visual-card roadmap-image-panel">
+        <img
+          src="/assets/generated/trusted-wisdom-infrastructure.jpg"
+          alt="可信人类智慧基础设施的未来图景"
+          loading="lazy"
+          decoding="async"
+        />
+        <figcaption>
+          <span>可信智慧</span>
+          <strong>让可追溯的人类智慧，成为下一代 AI 的干净知识底座。</strong>
+        </figcaption>
+      </figure>
 
       <div className="roadmap-visual" aria-label="Paper Hunter 产品路线图可视化">
         {roadmapVisualNodes.map((node, index) => (
