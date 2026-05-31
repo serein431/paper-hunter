@@ -756,15 +756,15 @@ function MarketReality() {
     },
     {
       icon: <Database size={22} />,
-      value: "90%",
-      label: "全球论文记录集中在 STM 领域",
-      note: "图像、数据、引用是复核重点。"
+      value: "7 万+",
+      label: "全球公开撤稿记录",
+      note: "Retraction Watch / Crossref 数据快照已超过 7 万条。"
     },
     {
       icon: <AlertTriangle size={22} />,
-      value: "1 万+",
-      label: "2023 年撤稿量创纪录",
-      note: "涉及错误、论文工厂和审稿操纵。"
+      value: "3.7 万+",
+      label: "中国相关撤稿记录",
+      note: "按记录归属国家统计，中国相关记录数量最高。"
     }
   ];
 
@@ -812,7 +812,8 @@ function MarketReality() {
         <a href="https://www.worldbank.org/en/topic/tertiaryeducation" rel="noreferrer" target="_blank">World Bank 高等教育数据</a>
         <a href="https://stm-assoc.org/wp-content/uploads/2024/08/2018_10_04_STM_Report_2018-1.pdf" rel="noreferrer" target="_blank">STM Report 年发文量</a>
         <a href="https://stm-assoc.org/oa-dashboard/oa-dashboard-2024/open-access-uptake-by-discipline/" rel="noreferrer" target="_blank">STM OA Dashboard 2024</a>
-        <a href="https://www.nature.com/articles/d41586-023-03974-8" rel="noreferrer" target="_blank">Nature 2023 撤稿记录</a>
+        <a href="https://gitlab.com/crossref/retraction-watch-data" rel="noreferrer" target="_blank">Retraction Watch 公共数据集</a>
+        <a href="https://api.crossref.org/v1/works?filter=update-type:retraction&rows=0" rel="noreferrer" target="_blank">Crossref 撤稿 API</a>
       </div>
     </section>
   );
@@ -1435,7 +1436,7 @@ function ModelKnowledgeSection({
               <input
                 value={modelConfig.model}
                 onChange={(event) => onModelChange({ ...modelConfig, model: event.target.value })}
-                placeholder="paper-reviewer-model"
+                placeholder="deepseek-chat"
               />
             </label>
             <label>
