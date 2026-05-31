@@ -423,6 +423,7 @@ export default function Home() {
       <AudienceSection />
       <PositioningSection />
       <PricingSection />
+      <InstitutionDonationSection />
       <ModelKnowledgeSection
         knowledgeBases={knowledgeBases}
         knowledgeMessage={knowledgeMessage}
@@ -1243,6 +1244,39 @@ function PricingSection() {
         <span>
           计费规则：风险分和是否存在疑点免费展示；证据卡、图像对比、引用核验和报告导出按篇解锁。
         </span>
+      </div>
+    </section>
+  );
+}
+
+function InstitutionDonationSection() {
+  return (
+    <section className="donation-section" id="campus-donation">
+      <div className="donation-copy">
+        <p className="eyebrow">院校公益试点</p>
+        <h2>产品进入 MVP 阶段后，可向有需要的院校免费捐赠。</h2>
+        <p>
+          如果高校、实验室、期刊编辑部或科研诚信办公室需要一套论文风险初筛工具，
+          Paper Hunter 在完成可稳定试用的 MVP 后，愿意提供免费捐赠试点版本。
+        </p>
+      </div>
+
+      <div className="donation-panel">
+        <article>
+          <Landmark size={22} />
+          <strong>面向院校真实流程</strong>
+          <p>支持毕业论文初筛、投稿前自查、匿名举报线索整理和科研诚信办公室预审。</p>
+        </article>
+        <article>
+          <BadgeCheck size={22} />
+          <strong>免费捐赠试点版本</strong>
+          <p>MVP 稳定后可提供给试点院校使用，优先覆盖真实有需求、愿意共同反馈流程的机构。</p>
+        </article>
+        <article>
+          <Sparkles size={22} />
+          <strong>一起建设可信学术生态</strong>
+          <p>院校反馈将帮助我们完善证据标准、合规边界和人工复核流程。</p>
+        </article>
       </div>
     </section>
   );
