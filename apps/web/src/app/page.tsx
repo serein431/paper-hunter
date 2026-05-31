@@ -1937,8 +1937,8 @@ function TeamSection() {
       role: "全栈工程师",
       scope: "AI 开发、产品实现",
       body: "现读于河南省建业外国语中学，17 岁高中生 AI 开发者。参与猎豹移动创始人傅盛发起的黑客松活动，速通最难题并获得 Offer。",
-      qr: demoGroupQr,
-      contactHint: "扫码进入 Demo 体验群，留言张志远可现场联系。",
+      qr: "/assets/team/minyuan-qr.jpg",
+      contactHint: "扫码添加张志远微信，交流 AI 开发、产品实现和现场 Demo。",
       proofs: ["清华大学 AttraX 一等奖", "小红书黑巅受邀嘉宾", "BEYOND Expo 全场大奖最佳造物奖"]
     },
     {
