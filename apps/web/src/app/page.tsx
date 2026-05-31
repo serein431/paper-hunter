@@ -391,6 +391,7 @@ export default function Home() {
   return (
     <main className="app-shell">
       <Hero onRunDemo={() => void runSample("synthetic-paper", "showcase")} onJumpToDemo={scrollToOnsiteDemo} loading={loading} />
+      <ProductIntroVideo />
       <MarketReality />
       <StoryStrip />
       <AiLoopStory />
@@ -613,6 +614,50 @@ function Hero({
             </span>
           ))}
         </div>
+      </div>
+    </section>
+  );
+}
+
+function ProductIntroVideo() {
+  return (
+    <section className="product-video-section" id="product-video">
+      <div className="product-video-copy">
+        <p className="eyebrow">15 秒产品短片</p>
+        <h2>先看懂 Paper Hunter，再看它跑起来。</h2>
+        <p>
+          用一支短片把现场观众带进问题：AI 论文时代，学术质疑不能停留在感觉上，
+          必须回到可复核证据。
+        </p>
+        <div className="video-proof-row">
+          <span>
+            <Timer size={16} />
+            15 秒讲清产品
+          </span>
+          <span>
+            <Eye size={16} />
+            适合现场开场
+          </span>
+          <span>
+            <ShieldCheck size={16} />
+            证据优先
+          </span>
+        </div>
+      </div>
+
+      <div className="product-video-frame">
+        <video
+          aria-label="Paper Hunter 15 秒中文产品介绍短片"
+          autoPlay
+          controls
+          loop
+          muted
+          playsInline
+          poster="/assets/paper-hunter-hero-clean.png"
+          preload="metadata"
+        >
+          <source src="/assets/paper-hunter-intro.mp4" type="video/mp4" />
+        </video>
       </div>
     </section>
   );
